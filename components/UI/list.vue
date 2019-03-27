@@ -7,6 +7,7 @@ ol(v-else)
 
 <script>
 export default {
+  name: 'list',
   props: {
     ordered: Boolean,
     default: false

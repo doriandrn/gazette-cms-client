@@ -1,21 +1,29 @@
 <template lang="pug">
 .container
-  header.header.ui.black
+  header.header.ui
     .container__inner
       .header__top
-        nuxt-link.logo(to="/")
-          h1 Gazette
+        login
+
+      logo
       navbar(:items="categories")
 
   nuxt
 
   footer
     p copyshit
+
+  configurator
 </template>
 
 <script>
 import headr from 'UI/headers/default'
 import navbar from 'UI/navbars/default'
+
+import logo from 'c/logo'
+import configurator from 'c/configurator'
+
+import login from 'c/login'
 
 import categories from 'data/categories'
 
@@ -32,25 +40,19 @@ export default {
       config
     }
   },
-  computed: {
-    mainNav () {
-      return { ...this.categories.map(cat => ({ [cat.uri || cat.name]: cat })) }
-    }
-  },
   components: {
     headr,
-    navbar
+    navbar,
+    logo,
+    login,
+    configurator
   }
 }
 </script>
 
 <style lang="stylus">
-@require '~styles/config'
+@require '~styles/base'
 @require './themes/' + theme + '/grid'
-
-a
-  &:hover
-    color yellow !important
 
 .black
   background black
@@ -62,25 +64,33 @@ a
 .container
   width 100%
   display grid
+  grid-template-areas 'header header header'\
+                      'pageHead pageHead pageHead'\
+                      '. main .'\
+                      '. aside .'\
+                      '. video .'\
+                      'footer footer footer'
 
-  // /* four columns for grid areas  */
-  // grid-template-columns 1fr 1fr 1fr 1fr
-
-  // /* three rows for grid areas  */
-  // grid-template-rows 4fr 80fr 2fr
-
-  // /* grid areas setup; LOVE This ease of use!  */
-  // grid-template-areas 'header header header header'\
-  //                     'main main main main'\
-  //                     'nav footer footer footer'
-
-  // grid-gap 10vmin
-
-  grid-template-areas: 'header header header' 'pageHead pageHead pageHead' '. main .' '. aside .' '. video .' 'footer footer footer';
   grid-template-columns: minmax(10px, 2%) 1fr minmax(10px, 2%);
   grid-template-rows: 100px minmax(30px, auto) 1fr minmax(100px, auto) auto minmax(80px, auto);
-  grid-row-gap: 1px;
-  grid-column-gap: 1px;
+  grid-row-gap 1px
+  grid-column-gap 1px
+
+  &.sidebar
+    +above(xl)
+      grid-template-areas 'header header header header'\
+                          'pageHead pageHead pageHead pageHead'\
+                          '. main aside .'\
+                          '. video video .'\
+                          'footer footer footer footer'
+      grid-template-columns: minmax(10px, .5%) 4fr minmax(160px, 1fr) minmax(10px, .5%);
+      grid-template-rows: repeat(2 , minmax(100px, auto)) auto 1fr minmax(60px, auto);
+      grid-column-gap 16px
+      align-content: flex-start
+      align-items: flex-start
+
+    +desktop()
+      grid-template-columns minmax(10px, .5%) 4fr minmax(300px, 1fr) minmax(10px, .5%)
 
   &__inner
     margin 0 auto
@@ -93,14 +103,22 @@ a
 header
   grid-area header
 
+  .container__inner
+    padding: smalls.tb 0
+
+  margin-bottom: smalls.elementsV * 3
+
 .page__head
   grid-area pageHead
 
-main
+.main
   grid-area main
 
 footer
   grid-area footer
+
+aside
+  grid-area aside
 
 .container
   > header
@@ -110,25 +128,16 @@ footer
     nav
       margin-top auto
 
-  > main
-    display grid
-    -ms-flex-pack end
-    grid-template-columns repeat(6 , 1fr)
-    grid-template-rows auto repeat(2 , minmax(auto, 200px)) auto
-    grid-template-areas 'featured featured featured featured narrow narrow' 'small-1 small-1 small-1 tall tall tall' 'small-2 small-2 small-2 tall tall tall' 'full full full full full full';
-    grid-row-gap 16px
-    grid-column-gap 16px
-    justify-items flex-start
-    justify-content flex-end
-    align-content: flex-start
-
-    .featured
-      grid-area featured
-
 .header
   &__top
   &__bottom
     *
       margin-bottom 0
 
+#gconfig
+  position fixed
+  right 0
+  top 20%
+  padding 20px
+  background yellow
 </style>

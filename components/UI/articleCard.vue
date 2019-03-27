@@ -1,14 +1,27 @@
 <template lang="pug">
-li
-  h3 {{ title }}
+li(:class="{ featured: featured }")
+  h3
+    nuxt-link(:to="url") {{ title }}
 </template>
 
 <script>
 export default {
   props: {
+    url: {
+      type: String,
+      default () { return `${this.taxonomy || 'article'}/${this.id || 'untitled'}`}
+    },
+    taxonomy: {
+      type: String,
+      default: 'article'
+    },
     title: {
       type: String,
       default: 'Unnamed post'
+    },
+    featured: {
+      type: Boolean,
+      default: false
     },
     authorsIds: {
       type: Array,

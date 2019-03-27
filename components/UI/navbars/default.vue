@@ -2,7 +2,7 @@
 nav(:data-vertical="vertical")
   ul(v-if="items")
     li(v-for="item, path in items")
-      nuxt-link(:to="item.uri" v-if="item.uri") {{ item.name }}
+      nuxt-link(:to="path" v-if="path") {{ item.name }}
 </template>
 
 <script>
@@ -13,12 +13,12 @@ export default {
       default: null
     },
     items: {
-      type: [Object, Array],
+      type: Object,
       default () {
         return {
-          '/category/tech': {
+          tech: {
             name: 'Tech',
-            uri: 'tech'
+            color: blue
           }
         }
       }
@@ -36,6 +36,7 @@ nav
     text-transform uppercase
     font-size 10px
     line-height 12px
+    font-weight bold
     letter-spacing 1px
 
   ul

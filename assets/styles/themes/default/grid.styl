@@ -1,3 +1,25 @@
 container = {
   width: 1000px
 }
+
+.grid
+  display grid
+  -ms-flex-pack end
+  padding 0
+
+  grid-row-gap 16px
+  grid-column-gap 16px
+  justify-items flex-start
+  justify-content flex-end
+  align-content: flex-start
+
+  &[data-grid="index1"]
+    grid-template-columns repeat(6 , 1fr)
+    grid-template-rows auto repeat(2 , minmax(auto, 200px)) auto
+    grid-template-areas 'featured featured featured featured narrow narrow'\
+                        'small-1 small-1 small-1 tall tall tall'\
+                        'small-2 small-2 small-2 tall tall tall'\
+                        'full full full full full full'
+
+    .featured
+      grid-area featured

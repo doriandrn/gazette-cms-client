@@ -1,24 +1,33 @@
 <template lang="pug">
-main.home
+.container__inner.main(:class="{ sidebar: $slots.sidebar }")
   h1 index page yoyo
 
-  articleCard(
-    v-for=  "article in content.articles"
-    :article="article"
-  )
-  widget(
-    v-if=  "cfg.widgets.topStories"
-    title= "top stories"
-  )
-    list(ordered)
-      article-card(
-        v-for=      "story in topStories",
-        :class=     "{ featured: story.featured }"
-        :key=       "story.title"
-        :title=     "story.title"
-        :category = "story.category"
-        :authors=   "story.authors"
+  main
+    ul.grid(data-grid="index1")
+      articleCard(
+        v-for=    "article in content.articles"
+        :key=     "article.title"
+        :title=   "article.title"
+        :category="article.category"
+        :featured="article.featured"
       )
+
+      widget(
+        v-if=  "cfg.widgets.topStories"
+        title= "top stories"
+      )
+        list(ordered)
+          article-card(
+            v-for=      "story in topStories",
+            :class=     "{ featured: story.featured }"
+            :key=       "story.title"
+            :title=     "story.title"
+            :category = "story.category"
+            :authors=   "story.authors"
+          )
+
+  aside(v-if="$slots.sidebar")
+    slot(name="sidebar")
 </template>
 
 <script>
@@ -45,3 +54,10 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+main
+  > ul
+    list-style-type none
+    padding 0
+</style>

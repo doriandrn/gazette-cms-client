@@ -21,6 +21,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  mode: 'spa',
 
   /*
   ** Customize the progress bar color
@@ -32,6 +33,20 @@ module.exports = {
       lang: 'styl'
     }
   ],
+
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
+  ],
+
+  plugins: [
+    { src: '~plugins/validate' },
+  ],
+
+  auth: {
+
+  },
+
   /*
   ** Build configuration
   */

@@ -1,41 +1,27 @@
-export default [
-  {
-    nid: 0,
+export default {
+  tech: {
     name: 'Tech',
-    color: 'blue',
-    uri: 'tech'
+    color: 'blue'
   },
-  {
-    nid: 1,
+  health: {
     name: 'Health',
-    color: 'red',
-    uri: 'health'
+    color: 'red'
   },
-  {
-    nid: 2,
+  scifi: {
     name: 'SciFi',
-    uri: 'science',
-    color: 'purple',
+    color: 'purple'
   },
-  {
-    nid: 3,
+  sports: {
     name: 'Sports',
-    uri: 'sports',
     color: 'green'
   },
-  {
-    nid: 4,
-    name: 'Culture',
-    uri: 'culture'
+  culture: {
+    name: 'Culture'
   },
-  {
-    nid: 5,
-    name: 'Business',
-    uri: 'business'
+  business: {
+    name: 'Business'
   },
-  {
-    nid: 6,
-    name: 'Lifestyle',
-    uri: 'lifestyle'
+  lifestyle: {
+    name: 'Lifestyle'
   }
-]
+}

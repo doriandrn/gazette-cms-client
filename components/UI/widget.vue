@@ -2,7 +2,7 @@
 .widget
   header.widget__header(v-if="title")
     h2 {{ title }}
-  main.widget__content(v-if="$slots.default")
+  .widget__content(v-if="$slots.default")
     slot
   //- footer.widget__footer(v-if="")
 </template>
@@ -20,5 +20,5 @@ export default {
 
 <style lang="styl">
 .widget
-  grid-area widget
+  border-top 1px solid
 </style>

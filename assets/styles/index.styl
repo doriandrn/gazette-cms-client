@@ -1,10 +1,4 @@
-@require 'config'
-themesPath = 'themes/' + theme + '/'
-
-requiredDeclarations = fonts palette typography
-
-for declaration in requiredDeclarations
-  @require themesPath + declaration
+@require 'base'
 
 @require '_reset'
 @require 'atoms/*'

@@ -28,3 +28,8 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+.admin
+  display grid
+</style>

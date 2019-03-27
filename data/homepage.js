@@ -5,7 +5,22 @@ export default {
         title: 'New Emojis Are Here. We’re Not Ready.',
         excerpt: 'Each year brings new additions outdated tech can barely support',
         authors: [0],
-        date: 'Nov 12'
+        date: 'Nov 12',
+        featured: true
+      },
+      {
+        title: 'School Is an Economy and Its Currency Is the Grade',
+        subtitle: 'Any meaningful school reform needs to recognize the reality of our educational system',
+        excerpt: 'Each year brings new additions outdated tech can barely support',
+        authors: [0],
+        date: 'Nov 13',
+      },
+      {
+        title: 'School Is an Economy and Its Currency Is the Grade',
+        subtitle: 'Any meaningful school reform needs to recognize the reality of our educational system',
+        excerpt: 'Each year brings new additions outdated tech can barely support',
+        authors: [0],
+        date: 'Nov 13',
       }
     ]
   },
