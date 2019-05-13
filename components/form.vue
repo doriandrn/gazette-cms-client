@@ -1,16 +1,29 @@
 <template lang="pug">
-form
-  field(
-    v-for=  "field, id in fields"
-    :type=  "field.type"
-    :key=   "id"
-    :id=    "id"
-    :label= "id"
-    :v=     "field.v"
-  )
+form(
+  @submit.prevent = "validateF"
+  :data-vv-scope=   "name"
+)
+  fieldset
+    field(
+      v-for=  "field, id in fields_"
+      :context= "name"
+      :type=  "field.type"
+      :key=   "id"
+      :id=    "id"
+      :label= "id"
+      :v=     "field.v"
+
+      :data-vv-scope=  "name"
+      :data-vv-as=    "field.label"
+      :data-vv-name=  "id"
+
+      v-model=  "$data[id]"
+    )
 
   field(
     type= "submit"
+    :context= "name"
+    :disabled = "errors.any(name)"
   )
 </template>
 
@@ -25,7 +38,11 @@ import field from 'c/field'
     field
   },
   props: {
-    fields: {
+    name: {
+      type: String,
+      default: 'unnamed'
+    },
+    fields_: {
       type: Object,
       default () {
         return {
@@ -39,6 +56,18 @@ import field from 'c/field'
   }
 })
 export default class Form extends Vue {
+  data () {
+    const data = {}
+    Object.keys(this.fields_).map(f => { data[f] = undefined } )
+    return data
+  }
 
+  validateF () {
+    this.$validator.validateAll(this.name).then((result) => {
+      if (result) {
+        console.log('all good')
+      }
+    });
+  }
 }
 </script>

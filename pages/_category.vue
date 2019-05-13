@@ -1,5 +1,5 @@
 <template lang="pug">
-main.category
+main.main.category
   h1 {{ title }}
 </template>
 

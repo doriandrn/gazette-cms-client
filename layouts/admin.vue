@@ -10,7 +10,11 @@
 
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'nuxt-class-component'
+import AuthMixin from '~/mixins/auth'
+
 const sections = [
   'categories',
   'taxes',
@@ -20,7 +24,11 @@ const sections = [
   'users'
 ]
 
-export default {
+@Component({
+  middleware: ['auth'],
+  mixins: [AuthMixin]
+})
+export default class GazetteAdminLayout extends Vue {
   data () {
     return {
       sections

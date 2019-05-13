@@ -1,12 +1,17 @@
 <template lang="pug">
 .container
-  header.header.ui
-    .container__inner
-      .header__top
-        login
+  headr.header.ui
+    login(
+      slot=   "top"
+      v-if=   "!$auth.$state.loggedIn"
+    )
+    p(
+      slot=   "top"
+      v-else
+    ) logat
 
-      logo
-      navbar(:items="categories")
+    logo
+    navbar(:items="categories")
 
   nuxt
 
@@ -17,7 +22,7 @@
 </template>
 
 <script>
-import headr from 'UI/headers/default'
+import headr from 'c/header'
 import navbar from 'UI/navbars/default'
 
 import logo from 'c/logo'
@@ -138,6 +143,5 @@ aside
   position fixed
   right 0
   top 20%
-  padding 20px
-  background yellow
+
 </style>

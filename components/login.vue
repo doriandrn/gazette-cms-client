@@ -2,7 +2,8 @@
 .login
   .login__form
     frm(
-      :fields = "fields"
+      name= "login"
+      :fields_ = "formfields"
       @submit = ""
     )
 
@@ -12,18 +13,20 @@
 <script>
 import frm from 'c/form'
 
+const formfields = {
+  username: {
+    v: 'required'
+  },
+  password: {
+    v: 'required',
+    type: 'password'
+  }
+}
+
 export default {
   data () {
     return {
-      fields: {
-        username: {
-          v: 'required'
-        },
-        password: {
-          v: 'required',
-          type: 'password'
-        }
-      },
+      formfields
     }
   },
 

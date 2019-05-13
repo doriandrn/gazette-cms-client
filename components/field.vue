@@ -1,5 +1,5 @@
 <template lang="pug">
-li.field
+div(:class="{ error: errors.has(id, context) }")
   label(
     v-if=   "type !== 'submit'"
     :for=   "id"
@@ -8,14 +8,13 @@ li.field
     :type=          "type"
     :name=          "id"
     :placeholder=   "placeholder"
-    :disabled=      "type === 'submit' ? (errors.any('eb')): disabled"
-    v-model=        "value"
+    :disabled=      "disabled"
+    :value=         "value"
     v-validate=     "v || null"
-    data-vv-scope=  "eb"
-    :data-vv-as=    "label"
-    :data-vv-name=  "id"
-    :data-vv-path=  "value"
+
     :checked=       "checked"
+
+    @input=        "$emit('input', $event.target.value)"
   )
 </template>
 
@@ -51,6 +50,10 @@ import Component from 'vue-class-component'
     },
     checked: {
       type: Boolean
+    },
+    context: {
+      type: String,
+      default: 'smh'
     }
   }
 })
