@@ -43,9 +43,11 @@ nav
     padding 0
     list-style-type none
     display flex
+    flex-wrap wrap
     grid-auto-rows 40px
 
   &:not([data-vertical])
     ul
-      flex-direction row
+      +above(xl)
+        flex-direction row
 </style>

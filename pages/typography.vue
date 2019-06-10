@@ -1,5 +1,5 @@
 <template lang="pug">
-article.main.typo-pg
+article.article
   h1 Expression: There's Always Delicacy & Joy Beyond Mesmerizing Expression
   .content
     p.teaser Nullam tempus, felis quis tempus mattis, nulla turpis faucibus felis, vitae pharetra mi arcu nec tellus. Nunc nec quam non sem vehicula maximus molestie sit amet odio.
@@ -84,8 +84,14 @@ article.main.typo-pg
     div.divider
 </template>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 article
   max-width 640px
   margin 0 auto
+  grid-area main
+
+  h1
+    +desktop()
+      margin-left -25%
+      max-width 800px
 </style>

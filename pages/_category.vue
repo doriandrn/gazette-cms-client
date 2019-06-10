@@ -1,6 +1,6 @@
 <template lang="pug">
 main.main.category
-  h1 {{ title }}
+  h1.hero {{ title }}
 </template>
 
 <script>

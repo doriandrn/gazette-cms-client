@@ -5,6 +5,7 @@ module.exports = {
     'postcss-vertical-rhythm': {},
     'postcss-pxtorem': {},
     'autoprefixer': {},
+    'postcss-short': {},
     'postcss-font-magician': {
       hosted: ['/assets/styles/themes/default/assets/fonts/'],
       variants: {

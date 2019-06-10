@@ -31,10 +31,11 @@ export default {
 
 .avatar
   display block
-  background-image: embedurl('/images/avatars/default-avatar.png')
+  // background-image: embedurl('/images/avatars/default-avatar.png')
   background-position 50%
   background-size 100%
   background-color: colors.bg
   border-radius 50%
   overflow hidden
+  size 40px
 </style>

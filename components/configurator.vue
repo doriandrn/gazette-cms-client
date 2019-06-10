@@ -1,5 +1,6 @@
 <template lang="pug">
-#gconfig
+#gconfig(v-if="cfgOpen")
+  span.close(@click  = "toggleConfig") close
   section(v-for=  "section, key in $data")
     h4 {{ String(key).toUpperCase() }}
 
@@ -10,14 +11,24 @@
         li(v-for= "ceva in Object.keys(section[category])")
           label {{ ceva }}
 
+button#gconfigOpen(
+  v-else,
+  @click  = "toggleConfig"
+) Open config
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   data () {
     return {
       appearance: {
-        palette: {},
+        palette: {
+          select: {
+
+          }
+        },
         spacings: {},
         typography: {},
         layout: {
@@ -27,14 +38,36 @@ export default {
         },
       }
     }
+  },
+  methods: {
+    ...mapActions({
+      'toggleConfig': 'configurator/toggle'
+    })
+  },
+  computed: {
+    ...mapGetters({
+      'cfgOpen': 'configurator/open',
+    })
   }
 }
 </script>
 
 <style lang="stylus">
 #gconfig
+  position fixed
+  top 0
+  bottom 0
+  right 0
   background #fafafa
-  border 1px solid
   padding 20px
   min-width 300px
+
+  +above(l)
+    padding 40px
+
+  &Open
+    position fixed
+    background yellow
+    top 200px
+    right 0
 </style>

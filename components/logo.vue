@@ -21,5 +21,8 @@ export default {
   margin 20px !important
 
   img
-    max-height 60px
+    max-height 40px
+
+    +above(xl)
+      max-height 60px
 </style>

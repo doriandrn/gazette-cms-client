@@ -6,12 +6,14 @@ function resolve(dir) {
   return path.join(__dirname, '.', dir)
 }
 
+const title = 'g2'
+
 module.exports = {
   /*
   ** Headers of the page
   */
   head: {
-    title: 'g2',
+    title,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -41,7 +43,10 @@ module.exports = {
 
   plugins: [
     { src: '~plugins/validate' },
+    // { src: '~plugins/prisma' },
   ],
+
+  globalName: title,
 
   auth: {
 
@@ -51,6 +56,25 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    postcss: {
+      plugins: {
+        'postcss-vertical-rhythm': {},
+        'postcss-pxtorem': {},
+        'autoprefixer': {},
+        'postcss-short': {},
+        'postcss-font-magician': {
+          hosted: ['/assets/styles/themes/default/assets/fonts/'],
+          variants: {
+              'Roboto Condensed': {
+                  '300': [],
+                  '400': [],
+                  '700': []
+              }
+          },
+          foundries: ['google']
+        }
+      }
+    },
     extend (config, { isDev, isClient }) {
       // namespaces for imports
       Object.assign(config.resolve.alias, {

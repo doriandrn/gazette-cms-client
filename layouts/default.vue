@@ -1,24 +1,26 @@
 <template lang="pug">
-.container
+.container(:class="{ 'configurator--open': cfgOpen }")
+  buton.burger ham
   headr.header.ui
-    login(
-      slot=   "top"
-      v-if=   "!$auth.$state.loggedIn"
-    )
-    p(
-      slot=   "top"
-      v-else
-    ) logat
+    logo(slot="top")
 
-    logo
     navbar(:items="categories")
 
-  nuxt
+    .user__actions(slot="top")
+      input(type="search")
 
+      buton connect
+        login(
+          slot="dropdown"
+          v-if=   "!$auth.$state.loggedIn"
+        )
+      buton notifications
+
+  nuxt
   footer
     p copyshit
 
-  configurator
+  configurator(v-if="cfgEnabled")
 </template>
 
 <script>
@@ -29,8 +31,10 @@ import logo from 'c/logo'
 import configurator from 'c/configurator'
 
 import login from 'c/login'
-
+import buton from 'c/button'
 import categories from 'data/categories'
+
+import { mapGetters, mapActions } from 'vuex'
 
 const config = {
   header: {
@@ -45,11 +49,18 @@ export default {
       config
     }
   },
+  computed: {
+    ...mapGetters({
+      'cfgOpen': 'configurator/open',
+      'cfgEnabled': 'configurator/enabled'
+    })
+  },
   components: {
     headr,
     navbar,
     logo,
     login,
+    buton,
     configurator
   }
 }
@@ -66,6 +77,10 @@ export default {
   a
     color white
 
+.burger
+  position absolute
+  size 40px
+
 .container
   width 100%
   display grid
@@ -77,7 +92,7 @@ export default {
                       'footer footer footer'
 
   grid-template-columns: minmax(10px, 2%) 1fr minmax(10px, 2%);
-  grid-template-rows: 100px minmax(30px, auto) 1fr minmax(100px, auto) auto minmax(80px, auto);
+  grid-template-rows: 170px minmax(30px, auto) 1fr minmax(100px, auto) auto minmax(80px, auto);
   grid-row-gap 1px
   grid-column-gap 1px
 
@@ -107,11 +122,19 @@ export default {
 
 header
   grid-area header
+  margin-bottom: smalls.elementsV * 3
 
   .container__inner
     padding: smalls.tb 0
+    flex-direction row
+    flex-wrap wrap
 
-  margin-bottom: smalls.elementsV * 3
+  nav
+    background #eee
+    padding 8px 16px
+
+    +above(xl)
+      border-radius 50px
 
 .page__head
   grid-area pageHead
@@ -135,13 +158,13 @@ aside
 
 .header
   &__top
+    flex 0 0 100%
+    display flex
+    flex-flow row nowrap
+
+  &__top
   &__bottom
     *
       margin-bottom 0
-
-#gconfig
-  position fixed
-  right 0
-  top 20%
 
 </style>
