@@ -1,29 +1,29 @@
 <template lang="pug">
 form(
-  @submit.prevent = "validateF"
-  :data-vv-scope=   "name"
+  @submit.prevent = "validateForm(name)"
 )
   fieldset
     field(
       v-for=  "field, id in fields_"
-      :context= "name"
+      :name=  "id"
       :type=  "field.type"
       :key=   "id"
       :id=    "id"
       :label= "id"
       :v=     "field.v"
+      :error= "errors.first(id, name)"
+
+      v-validate= "`${field.v}`"
 
       :data-vv-scope=  "name"
       :data-vv-as=    "field.label"
-      :data-vv-name=  "id"
 
       v-model=  "$data[id]"
     )
 
-  field(
+  input(
     type= "submit"
-    :context= "name"
-    :disabled = "errors.any(name)"
+    :disabled = "errors.any(name) || !allFieldsHaveValues"
   )
 </template>
 
@@ -62,12 +62,40 @@ export default class Form extends Vue {
     return data
   }
 
-  validateF () {
-    this.$validator.validateAll(this.name).then((result) => {
+  validateForm (scope) {
+    this.$validator.validateAll(scope).then((result) => {
       if (result) {
-        console.log('all good')
+        console.log('all good', result)
       }
     });
   }
+
+  get allFieldsHaveValues () {
+    let hv = true
+    for (const item in Object.keys(this.$data)) {
+      if (this[item] === '') hv = false
+      console.log(this[item])
+    }
+    console.log('hv', hv)
+    return hv
+  }
 }
 </script>
+
+<style lang="stylus">
+form
+  input[type="submit"]
+    margin-top 16px
+
+  label
+    line-height 20px
+    margin-bottom 4px
+  ul
+    > li
+      padding 0
+
+  > fieldset
+    > div
+      &+div
+        margin-top 8px
+</style>

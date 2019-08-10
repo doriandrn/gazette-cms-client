@@ -36,6 +36,8 @@ article.article
           :author=  "comment.author",
           :title=   "comment.title",
           :replies= "comment.replies",
+
+          :byAuthor= "commentByAuthor(comment.author.id)"
         )
 </template>
 
@@ -77,6 +79,7 @@ export default {
           comment: 'This is a demo comment',
           title: 'I like this!',
           author: {
+            id: '4',
             name: 'Miguel Jackson',
             avatar: 'miguel'
           },
@@ -87,6 +90,7 @@ export default {
             title: 'Agree',
             date: 'Mar 23, 2017 11:22',
             author: {
+              id: '2',
               name: 'Jack Richardson',
               avatar: 'jack'
             }
@@ -98,6 +102,7 @@ export default {
           date: 'Mar 23, 2017 11:22',
           comment: 'Mauris non pulvinar nisi. Vivamus cursus aliquam leo, non pretium nulla consectetur id. Duis dapibus vestibulum quam, ut placerat nulla ornare in. Vestibulum molestie scelerisque ligula vitae efficitur.',
           author: {
+            id: '1',
             name: 'Miguel Jackson',
             avatar: 'miguel'
           },
@@ -107,6 +112,7 @@ export default {
             title: 'Agree',
             date: 'Mar 23, 2017 11:22',
             author: {
+              id: '2',
               name: 'Jack Richardson',
               avatar: 'jack'
             }
@@ -117,6 +123,7 @@ export default {
             title: 'Agree',
             date: 'Mar 23, 2017 11:22',
             author: {
+              id: '2',
               name: 'Jack Richardson',
               avatar: 'jack'
             }
@@ -126,10 +133,12 @@ export default {
       tags: ['reading', 'blockchain', 'amazon'],
       authors: [
         {
+          "id": "1",
           "name": "Anne Gentle",
           "bio": "Product manager at Cisco"
         },
         {
+          "id": "0",
           "name": "Dorian Tudorache",
           "bio": "CEO @ Internet"
         }
@@ -141,6 +150,12 @@ export default {
   components: {
     aboutAuthors,
     comment
+  },
+  computed: {
+    commentByAuthor () {
+      const { authors } = this
+      return id => authors.map(a => a.id).indexOf(id) > -1
+    }
   }
 }
 </script>
@@ -248,7 +263,9 @@ commentList()
       text-transform uppercase
       line-height 12px
       white-space nowrap
-      padding 4px 12px
+      padding 8px 12px
+      border-radius 55px
+      background-color: #fafafa
 
       &:before
         opacity .55

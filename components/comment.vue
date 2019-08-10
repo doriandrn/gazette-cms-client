@@ -1,5 +1,5 @@
 <template lang="pug">
-li
+li(:class="{ byAuthor, userComment }")
   user(:data= "author")
 
   .comment__content
@@ -9,7 +9,10 @@ li
     p {{ comment }}
 
     .comment__actions(v-if="!replyingToThis")
-      input(value="reply")
+      .comment__reply
+        close
+        textarea(placeholder="your opinion")
+        span Markdown supported.
       button like
       button(@click="replyToComment(id)") reply
 
@@ -36,6 +39,7 @@ li
 
 <script>
 import user from 'c/social/user'
+import close from 'c/closeButton'
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -100,10 +104,17 @@ export default {
       default () {
         return 'Mar 23, 2017 11:22'
       }
+    },
+    byAuthor: {
+      type: Boolean
+    },
+    userComment: {
+      type: Boolean
     }
   },
   components: {
-    user
+    user,
+    close
     // Comment
   },
   /* eslint-disable global-require */
@@ -123,11 +134,32 @@ export default {
     border-left 1px solid rgba(black, .1)
     position relative
 
+    > ul:last-child
+      padding-top 12px // more replies button adjust
+
   &__actions
     margin-top 20px
     background #fafafa
 
     > *:not(:first-child)
       margin-left 16px
+
+  &__reply
+    position relative
+    textarea
+      min-height 20px
+      width 100%
+
+    > span
+      font-size 11px
+      position absolute
+      color #eee
+      bottom 8px
+      left 8px
+
+.byAuthor
+  .comment
+    &__content
+      background yellow
 </style>
 

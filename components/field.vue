@@ -1,21 +1,19 @@
 <template lang="pug">
-div(:class="{ error: errors.has(id, context) }")
+div(:class="{ error }")
   label(
     v-if=   "type !== 'submit'"
     :for=   "id"
   ) {{ label }} #[em(v-if="!(v && v.indexOf('required') > -1)") opt]
   input(
     :type=          "type"
-    :name=          "id"
+    :name=          "name"
     :placeholder=   "placeholder"
     :disabled=      "disabled"
     :value=         "value"
-    v-validate=     "v || null"
-
     :checked=       "checked"
-
     @input=        "$emit('input', $event.target.value)"
   )
+  p.error(v-if="error") {{ error }}
 </template>
 
 <script lang="ts">
@@ -51,9 +49,11 @@ import Component from 'vue-class-component'
     checked: {
       type: Boolean
     },
-    context: {
-      type: String,
-      default: 'smh'
+    error: {
+      type: String
+    },
+    name: {
+      type: String
     }
   }
 })
@@ -61,3 +61,15 @@ export default class Field extends Vue {
 
 }
 </script>
+
+<style lang="stylus">
+.error
+  input
+    border-color red !important
+
+p.error
+  font-size 12px
+  line-height 14px
+  margin 8px 0
+  color red
+</style>
