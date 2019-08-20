@@ -20,13 +20,19 @@ button#gconfigOpen(
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
+const colorThemes = {
+  default: 'Default',
+  hippie: 'Hippie',
+  healthy: 'Healthy'
+}
+
 export default {
   data () {
     return {
       appearance: {
         palette: {
           select: {
-
+            ...colorThemes
           }
         },
         spacings: {},

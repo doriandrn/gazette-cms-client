@@ -17,6 +17,8 @@ export default {
 </script>
 
 <style lang="stylus">
+socials = github facebook
+
 button
   padding 8px 20px
   text-transform uppercase
@@ -28,8 +30,16 @@ button
     &:before
       content ''
       size 24px
-      background red
+      background-repeat no-repeat
+      background-size 100%
       display inline-block
+      vertical-align middle
+
+  for s in socials
+    &[icon=\"{s}\"]
+      icon = '~static/icons/social/' + s + '.svg'
+      &:before
+        background-image: embedurl(icon)
 
   .dropdown
     cursor default

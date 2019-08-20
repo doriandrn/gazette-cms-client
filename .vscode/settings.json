@@ -1,4 +1,5 @@
 {
   "editor.colorDecorators": false,
-  "editor.fontLigatures": true
+  "editor.fontLigatures": true,
+  "workbench.colorTheme": "Gotham"
 }
