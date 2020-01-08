@@ -17,10 +17,7 @@ div(:class="{ error }")
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-
-@Component({
+export default {
   props: {
     label: {
       type: String,
@@ -56,9 +53,6 @@ import Component from 'vue-class-component'
       type: String
     }
   }
-})
-export default class Field extends Vue {
-
 }
 </script>
 

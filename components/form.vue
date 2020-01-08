@@ -1,7 +1,5 @@
 <template lang="pug">
-form(
-  @submit.prevent = "validateForm(name)"
-)
+form
   fieldset
     field(
       v-for=  "field, id in fields_"
@@ -10,30 +8,27 @@ form(
       :key=   "id"
       :id=    "id"
       :label= "id"
-      :v=     "field.v"
-      :error= "errors.first(id, name)"
-
-      v-validate= "`${field.v}`"
-
-      :data-vv-scope=  "name"
-      :data-vv-as=    "field.label"
 
       v-model=  "$data[id]"
     )
 
   input(
     type= "submit"
-    :disabled = "errors.any(name) || !allFieldsHaveValues"
   )
 </template>
 
 <script lang="ts">
-import Component from 'nuxt-class-component'
+// import { Component } from 'nuxt-property-decorator'
 import Vue from 'vue'
 
 import field from 'c/field'
 
-@Component({
+export default {
+  data () {
+    const data = {}
+    Object.keys(this.fields_).map(f => { data[f] = undefined } )
+    return data
+  },
   components: {
     field
   },
@@ -53,31 +48,6 @@ import field from 'c/field'
         }
       }
     }
-  }
-})
-export default class Form extends Vue {
-  data () {
-    const data = {}
-    Object.keys(this.fields_).map(f => { data[f] = undefined } )
-    return data
-  }
-
-  validateForm (scope) {
-    this.$validator.validateAll(scope).then((result) => {
-      if (result) {
-        console.log('all good', result)
-      }
-    });
-  }
-
-  get allFieldsHaveValues () {
-    let hv = true
-    for (const item in Object.keys(this.$data)) {
-      if (this[item] === '') hv = false
-      console.log(this[item])
-    }
-    console.log('hv', hv)
-    return hv
   }
 }
 </script>

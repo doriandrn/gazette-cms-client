@@ -10,7 +10,7 @@ article.article
       v-if= "featured"
     )
       img(
-        :src= "`images/${featured.src}`"
+        :src= "`../images/${featured.src}`"
         v-if= "featured.type === 'image'"
         :alt= "featured.caption"
       )
@@ -37,7 +37,8 @@ article.article
           :title=   "comment.title",
           :replies= "comment.replies",
 
-          :byAuthor= "commentByAuthor(comment.author.id)"
+          :byAuthor= "commentByAuthor(comment.author.id)",
+          :userComment = "authenticatedUserId === comment.author.id"
         )
 </template>
 
@@ -155,6 +156,10 @@ export default {
     commentByAuthor () {
       const { authors } = this
       return id => authors.map(a => a.id).indexOf(id) > -1
+    },
+
+    authenticatedUserId () {
+      return '0'
     }
   }
 }

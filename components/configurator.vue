@@ -5,11 +5,13 @@
     h4 {{ String(key).toUpperCase() }}
 
     div(v-for=  "category in Object.keys(section)")
-      h5 {{ category }}
+      h5 {{ category.charAt(0).toUpperCase() + category.slice(1) }}
 
       ul
         li(v-for= "ceva in Object.keys(section[category])")
-          label {{ ceva }}
+          label(v-if="ceva !== 'select'") {{ ceva }}
+          select(v-else)
+            option(v-for="option in section[category][ceva]") {{ option }}
 
 button#gconfigOpen(
   v-else,

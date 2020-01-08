@@ -1,5 +1,5 @@
 <template lang="pug">
-header.header.ui
+header
   slot(name="beforeHeader")
   .container__inner
     .header__top
@@ -9,7 +9,7 @@ header.header.ui
 </template>
 
 <script lang="ts">
-import Component from 'nuxt-class-component'
+import { Component } from 'nuxt-property-decorator'
 import Vue from 'vue'
 
 export default class Form extends Vue {

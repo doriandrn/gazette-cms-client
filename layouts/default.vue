@@ -1,12 +1,16 @@
 <template lang="pug">
 .container(:class="{ 'configurator--open': cfgOpen }")
-  buton.burger ham
+  buton.burger(icon="burger", title="Toggle mobile navigation")
+    span
+    span
+    span
+
   headr.header.ui
     logo(slot="top")
 
     navbar(:items="categories")
 
-    .user__actions(slot="top")
+    actions(slot="top")
       input(type="search")
 
       buton connect
@@ -15,6 +19,8 @@
           v-if=   "!$auth.$state.loggedIn"
         )
       buton notifications
+
+  hero
 
   nuxt
   footer
@@ -25,7 +31,10 @@
 
 <script>
 import headr from 'c/header'
+import hero from 'c/hero'
+
 import navbar from 'UI/navbars/default'
+import actions from 'UI/actions'
 
 import logo from 'c/logo'
 import configurator from 'c/configurator'
@@ -56,6 +65,8 @@ export default {
     })
   },
   components: {
+    hero,
+    actions,
     headr,
     navbar,
     logo,
@@ -83,6 +94,8 @@ export default {
 
 .container
   width 100%
+  max-width 100%
+  overflow-x hidden
   display grid
   grid-template-areas 'header header header'\
                       'pageHead pageHead pageHead'\
@@ -122,7 +135,9 @@ export default {
 
 header
   grid-area header
-  margin-bottom: smalls.elementsV * 3
+
+  .actions
+    max-height 36px
 
   .container__inner
     padding: smalls.tb 0
@@ -130,11 +145,16 @@ header
     flex-wrap wrap
 
   nav
-    background #eee
-    padding 8px 16px
+    background black
+    color white
+    padding 4px 16px
+    width 100%
 
-    +above(xl)
-      border-radius 50px
+    ul
+      justify-content center
+
+    a
+      color white
 
 .page__head
   grid-area pageHead
@@ -161,6 +181,7 @@ aside
     flex 0 0 100%
     display flex
     flex-flow row nowrap
+    justify-content space-between
 
   &__top
   &__bottom

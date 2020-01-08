@@ -1,5 +1,8 @@
 <template lang="pug">
-button(:title="title")
+button(
+  :title=     "title"
+  :data-icon= "icon"
+)
   slot
 
   .dropdown(v-if="$slots.dropdown")
@@ -11,6 +14,9 @@ export default {
   props: {
     title: {
       type: String
+    },
+    icon: {
+      type: String
     }
   }
 }
@@ -20,23 +26,19 @@ export default {
 socials = github facebook
 
 button
-  padding 8px 20px
-  text-transform uppercase
-  font-weight 600
-  position relative
-
-  &[icon]
+  &[data-icon]
     padding 8px
+    border 0
     &:before
       content ''
       size 24px
       background-repeat no-repeat
-      background-size 100%
+      background-size 16px
       display inline-block
       vertical-align middle
 
   for s in socials
-    &[icon=\"{s}\"]
+    &[data-icon=\"{s}\"]
       icon = '~static/icons/social/' + s + '.svg'
       &:before
         background-image: embedurl(icon)

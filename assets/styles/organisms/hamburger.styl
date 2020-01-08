@@ -1,0 +1,48 @@
+burgerSize = 36px
+lineWidth = 18px
+lineHeight = 2px
+
+// The hamburger button used in header.
+.burger
+  position absolute 28px auto auto 10px
+  background transparent
+  border: 1px solid black
+  transform translateY(-50%)
+  size: burgerSize
+  padding 0
+  z-index 101
+  font-size 0
+  outline 0
+
+  +above(l)
+    top 23px
+    left 20px
+
+  // Burger Line
+  > span
+    display block
+    background rgba(black, .85)
+    width: lineWidth
+    height: lineHeight
+    position absolute
+    pointer-events none
+    left: ((burgerSize - lineWidth) / 2)
+    transition all .4s, top .1s ease-in-out
+
+    &:nth-child(1)
+      top 'calc( 50% - %s )' % (lineHeight*2)
+    &:nth-child(2)
+      top 50%
+    &:nth-child(3)
+      top 'calc( 50% + %s )' % (lineHeight*2)
+
+  // Hover
+  &:hover
+    > span
+      background rgba(black, .75)
+
+      &:nth-child(1)
+        top 'calc( 50% - %s )' % (lineHeight*3)
+
+      &:nth-child(3)
+        top 'calc( 50% + %s )' % (lineHeight*3)

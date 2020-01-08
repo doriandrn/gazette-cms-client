@@ -6,10 +6,10 @@ textarea
   font-size 14px
   line-height 16px
   border 0
-  border: 1px solid #eee
-  border-radius 6px
+  border: 1px solid transparent
+  border-radius 2px
   transition all .15s ease-in-out
-  background white
+  background #eee
   padding 8px 12px
   color #666
 
@@ -25,5 +25,15 @@ label
   text-transform capitalize
 
 input[type="submit"]
+button
+  background transparent
+  border 1px solid black
+  padding 8px 20px
+  text-transform uppercase
+  font-weight 600
+  position relative
+  color black
+  cursor pointer
+
   &:disabled
     color: #ddd

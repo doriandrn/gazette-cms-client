@@ -42,7 +42,7 @@ module.exports = {
   ],
 
   plugins: [
-    { src: '~plugins/validate' },
+    // { src: '~plugins/validate' },
     // { src: '~plugins/prisma' },
   ],
 
@@ -56,6 +56,12 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    babel: {
+      plugins: [
+        ["@babel/plugin-proposal-decorators", { legacy: true }],
+        ["@babel/plugin-proposal-class-properties", { loose: true }]
+      ]
+    },
     postcss: {
       plugins: {
         'postcss-vertical-rhythm': {},

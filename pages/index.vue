@@ -10,6 +10,7 @@
         :title=   "article.title"
         :category="article.category"
         :featured="article.featured"
+        :img= "article.img"
       )
 
       widget(

@@ -1,5 +1,7 @@
 <template lang="pug">
 li(:class="{ featured: featured }")
+  nuxt-link(:to="url" v-if="img")
+    img(:src="`images/${img}`")
   h3
     nuxt-link(:to="url") {{ title }}
 </template>
@@ -26,6 +28,9 @@ export default {
     authorsIds: {
       type: Array,
       default: () => [1, 2]
+    },
+    img: {
+      type: String,
     },
     category: {
       type: Number,

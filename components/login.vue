@@ -7,6 +7,8 @@
       @submit = "$auth.loginWith('local', { data: loginData })"
     )
 
+    a Forgot your password?
+
   .login__social
     label sign in with
     but(

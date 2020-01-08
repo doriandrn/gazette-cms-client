@@ -18,11 +18,11 @@ export default {
 .logo
   display block
   font-size 0
-  margin 20px !important
+  max-height 36px
+
+  +above(xl)
+    max-height 48px
 
   img
-    max-height 40px
-
-    +above(xl)
-      max-height 60px
+    max-height 100%
 </style>

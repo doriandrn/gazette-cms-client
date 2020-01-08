@@ -5,9 +5,8 @@ main.reg.container__inner
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'nuxt-class-component'
+// import { Component } from 'nuxt-property-decorator'
 
-@Component({})
 export default class Register extends Vue {
 
 }

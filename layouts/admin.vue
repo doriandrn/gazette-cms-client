@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'nuxt-class-component'
+// import { Component } from 'nuxt-property-decorator'
 import AuthMixin from '~/mixins/auth'
 
 const sections = [
@@ -24,10 +24,10 @@ const sections = [
   'users'
 ]
 
-@Component({
-  middleware: ['auth'],
-  mixins: [AuthMixin]
-})
+// @Component({
+//   middleware: ['auth'],
+//   mixins: [AuthMixin]
+// })
 export default class GazetteAdminLayout extends Vue {
   data () {
     return {
