@@ -20,7 +20,7 @@
         )
       buton notifications
 
-  hero
+  hero(v-if=  "$route.name.indexOf('article') < 0")
 
   nuxt
   footer
@@ -52,6 +52,14 @@ const config = {
 }
 
 export default {
+  head () {
+    link: [
+      {
+        rel: "stylesheet",
+        href: `/${this.cur}.css`
+      }
+    ]
+  },
   data () {
     return {
       categories,

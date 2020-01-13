@@ -1,8 +1,8 @@
 <template lang="pug">
 nav(:data-vertical="vertical")
   ul(v-if="items")
-    li(v-for="item, path in items")
-      nuxt-link(:to="path" v-if="path") {{ item.name }}
+    li(v-for="item in items")
+      nuxt-link(:to="`/${ slugify(item.name) }`") {{ item.name }}
 </template>
 
 <script>
@@ -13,14 +13,14 @@ export default {
       default: null
     },
     items: {
-      type: Object,
+      type: Array,
       default () {
-        return {
-          tech: {
+        return [
+          {
             name: 'Tech',
             color: blue
           }
-        }
+        ]
       }
     }
   }

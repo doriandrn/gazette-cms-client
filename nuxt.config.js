@@ -31,6 +31,10 @@ module.exports = {
   loading: { color: '#3B8070' },
   css: [
     {
+      src: 'assets/styles/themes/default/index.styl',
+      lang: 'styl'
+    },
+    {
       src: 'assets/styles/index.styl',
       lang: 'styl'
     }
@@ -43,7 +47,7 @@ module.exports = {
 
   plugins: [
     // { src: '~plugins/validate' },
-    // { src: '~plugins/prisma' },
+    { src: '~plugins/slugify' },
   ],
 
   globalName: title,

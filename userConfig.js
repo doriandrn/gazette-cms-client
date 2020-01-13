@@ -1,7 +1,20 @@
+const palettes = {
+  default: 'Default',
+  hippie: 'Hippie',
+  healthy: 'Healthy'
+}
+
 export default {
+  appearance: {
+    palette: {
+      type: 'select',
+      options: palettes
+    }
+  },
   layout: {
     header: {
       logo: {
+        type: 'upload',
         text: 'Gazette',
         image: 'logo.svg' // recomendded svg
       },
@@ -10,7 +23,11 @@ export default {
         inline: true
       }
     },
+    footer: {
+
+    },
     homepage: {
+      rightSidebar: false,
       widgets: {
         /**
          * Comment out a line to disable a widget

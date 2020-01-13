@@ -8,9 +8,12 @@
       h5 {{ category.charAt(0).toUpperCase() + category.slice(1) }}
 
       ul
-        li(v-for= "ceva in Object.keys(section[category])")
-          label(v-if="ceva !== 'select'") {{ ceva }}
-          select(v-else)
+        li(v-for= "configOption in Object.keys(section[category])")
+          label(v-if="configOption !== 'select'") {{ configOption }}
+          select(
+            v-else
+            @change=  "updateConfig(section[category], )"
+          )
             option(v-for="option in section[category][ceva]") {{ option }}
 
 button#gconfigOpen(
@@ -21,31 +24,11 @@ button#gconfigOpen(
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-
-const colorThemes = {
-  default: 'Default',
-  hippie: 'Hippie',
-  healthy: 'Healthy'
-}
+import config from '../userConfig'
 
 export default {
   data () {
-    return {
-      appearance: {
-        palette: {
-          select: {
-            ...colorThemes
-          }
-        },
-        spacings: {},
-        typography: {},
-        layout: {
-          header: {},
-          content: {},
-          footer: {}
-        },
-      }
-    }
+    return config
   },
   methods: {
     ...mapActions({
