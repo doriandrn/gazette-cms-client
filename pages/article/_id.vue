@@ -2,8 +2,12 @@
 article.article
   .article__meta
     span 3min
-    span review
-    span authors
+    span overall rating
+
+    p.authors by
+      span.author(v-for="author in authors")
+        nuxt-link(:to="`/profile/${slugify(author.name)}`") {{ author.name }}
+
     navbar.categories(:items="categories")
 
   .article__head
@@ -86,6 +90,8 @@ export default {
     text-align center
 
     span
+      display inline-block
+      vertical-align baseline
       font-family: fonts.ui
       margin 0 16px
       font-size 10px
