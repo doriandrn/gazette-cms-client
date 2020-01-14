@@ -15,7 +15,7 @@ export default {
   categories: [0, 2, 3],
   tags: ['reading', 'emojis', 'amazon'],
   content: `
-<p>Last month, Apple added 158 new emojis to iOS, but the emoji keyboard on iPhone — the primary means of accessing each of these characters — remains almost identical to the one we used nearly a decade ago.</p>
+<p>😐 Last month, Apple added 158 new emojis to iOS, but the emoji keyboard on iPhone — the primary means of accessing each of these characters — remains almost identical to the one we used nearly a decade ago.</p>
 
 <p>Meanwhile, people push for competing interests. Some want more emojis to better represent the diverse world we live in while others are frustrated by the ever-increasing list of characters to scroll past when new emojis push old favorites to the side.</p>
 
@@ -47,7 +47,7 @@ export default {
 `,
   comments: [
     {
-      comment: 'This is a demo comment',
+      comment: 'This is a demo comment 😐',
       title: 'I like this!',
       author: 0,
       date: 'Sep 23, 2017 13:22',
@@ -55,7 +55,8 @@ export default {
         comment: 'Yeah, indeed!',
         title: 'Agree',
         date: 'Mar 23, 2017 11:22',
-        author: 1
+        author: 1,
+        replies: [{}]
       }]
     },
     {
