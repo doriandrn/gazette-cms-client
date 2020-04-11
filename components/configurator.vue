@@ -9,15 +9,15 @@
 
       ul
         li(v-for= "configOption in Object.keys(section[category])")
-          label(v-if="configOption !== 'select'") {{ configOption }}
-          select(
-            v-else
-            @change=  "updateConfig(section[category], )"
+          configOption(
+            v-if    ="section[category][configOption].type !== undefined"
+            :id     ="configOption"
+            :options= "{}"
           )
-            option(v-for="option in section[category][ceva]") {{ option }}
 
 button#gconfigOpen(
   v-else,
+  data-icon="config"
   @click  = "toggleConfig"
 ) Open config
 </template>
@@ -57,6 +57,7 @@ export default {
     padding 40px
 
   &Open
+    font-size 0
     position fixed
     background yellow
     top 200px

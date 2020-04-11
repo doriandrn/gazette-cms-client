@@ -35,7 +35,13 @@ export default {
   background-position 50%
   background-size 100%
   background-color: colors.bg
-  border-radius 50%
+  border-radius 48px
   overflow hidden
-  size 40px
+  size 24px
+
+  +above(m)
+    size 32px
+
+  +above(l)
+    size 40px
 </style>

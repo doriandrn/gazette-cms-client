@@ -7,3 +7,50 @@ fonts = {
 
 	ui: 'Bw Surco Demo'\, fallback
 }
+
+body
+p
+  font: 400 18px/1.66 fonts.ui
+  color: #444
+
+
+h1
+h2
+h3
+  font-weight 700
+
+h1
+	line-height 36px
+  font-family: fonts.display
+
+  +above(xl)
+    font-size 60px
+    line-height 68px
+
+  &:not(.hero)
+    +above(xl)
+      margin-top 100px
+
+  &.hero
+    font-size 68px
+    line-height 64px
+
+h2
+  font-size 28px
+  line-height 32px
+
+  +above(xl)
+    font-size 44px
+    line-height 52px
+
+h3
+  font-size 20px
+  line-height 32px
+
+h6
+  font-size 10px
+  lettter-spacing 1px
+
+.subtitle
+  font-size 20px
+  line-height 26px

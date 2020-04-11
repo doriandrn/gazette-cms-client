@@ -1,27 +1,24 @@
 <template lang="pug">
 article.article
-  .article__meta
-    span 3min
-    span overall rating
-
-    p.authors by
-      span.author(v-for="author in authors")
-        nuxt-link(:to="`/profile/${slugify(author.name)}`") {{ author.name }}
-
-    navbar.categories(:items="categories")
+  featured(:src="featured.src" v-if="featured")
 
   .article__head
-    figure.article__featured(v-if="featured")
-      img(
-        :src="`../images/${featured.src}`"
-        v-if="featured.type === 'image'"
-        :alt="featured.caption"
-      )
-      figcaption(v-if="featured.caption") {{ featured.caption }}
+    .article__meta
+      navbar.categories(:items="categories")
+      span 3min
+
+    rating(:value="rating" v-if="rating")
+
     h1 {{ title }}
     p.subtitle {{ subtitle }}
 
   .article__content(v-html=  "content")
+
+  section.authors
+    h2 Brought to you by
+    ul
+      li(v-for="author in authors")
+        nuxt-link(:to="`/profile/${slugify(author.name)}`") {{ author.name }}
 
   section.article__footer.ui
     h2 Comments
@@ -38,19 +35,27 @@ article.article
         :byAuthor= "comment.author",
         :userComment = "authenticatedUserId === comment.author.id"
       )
+
+  section
+    h2 Related
 </template>
 
 <script>
+import featured from 'c/contentFeatured'
 import navbar from 'UI/navbars/default'
 import comment from 'c/comment'
+import rating from 'c/rating'
 
 import categories from 'data/categories'
 import authors from 'data/authors'
+import articleDefault from 'data/articles/default'
 
 export default {
   components: {
     navbar,
-    comment
+    comment,
+    featured,
+    rating
   },
   asyncData ({ params }) {
     let data
@@ -68,6 +73,7 @@ export default {
       return data
     } catch (e) {
       console.error('Eroare la cerere de articol:', e)
+      return articleDefault
     }
   }
 }
@@ -87,21 +93,27 @@ export default {
     margin-top 20px
 
   &__meta
-    text-align center
+    display flex
+    flex-flow row nowrap
 
     span
       display inline-block
       vertical-align baseline
       font-family: fonts.ui
       margin 0 16px
+      margin-left auto
       font-size 10px
       text-transform uppercase
       letter-spacing 1px
       color: #666
 
   &__featured
+    margin 0 -21px
+    width calc(100% + 42px + 2px)
+
     +above(l)
       float: left;
+      width auto
       margin-right: 64px;
       margin-bottom: 64px;
 
@@ -117,6 +129,16 @@ export default {
       max-width 600px
 
 borderColor = rgba(black, .05)
+
+.categories
+  > ul > li
+    &:not(:first-child)
+      margin-left 4px
+  a
+    background #fafafa
+    border-radius 2px
+    padding 4px 8px
+    color #aaa
 
 commentList()
   list-style none

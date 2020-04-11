@@ -1,13 +1,8 @@
 export default {
-  title: 'New Emojis Are Here. We’re Not Ready.',
+  title: 'Just a content piece',
   subtitle: 'Each year brings new additions outdated tech can barely support',
   excerpt: 'Each year brings new additions outdated tech can barely support',
-  rating: 45,
   date: '17 Jan 20',
-  featured: {
-    src: 'pozica.jpg',
-    caption: 'Mega random picture taken by someone sometime'
-  },
   thumb: 'igor-cancarevic-w29QCeUBAfE-unsplash.jpg',
   originalURL: 'https://onezero.medium.com/new-emojis-are-here-were-not-ready-e7f9de4779d2',
   reviews: [{}],

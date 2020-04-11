@@ -1,32 +1,36 @@
 <template lang="pug">
 .container(:class="{ 'configurator--open': cfgOpen }")
-  buton.burger(icon="burger", title="Toggle mobile navigation")
-    span
-    span
-    span
+  //- buton.burger(icon="burger", title="Toggle mobile navigation")
+  //-   span
+  //-   span
+  //-   span
 
-  headr.header.ui
-    logo(slot="top")
+  //- headr.header.ui
+  //-   logo(slot="top")
 
-    navbar(:items="categories")
+    //- actions(slot="top")
+    //-   input(type="search")
 
-    actions(slot="top")
-      input(type="search")
+    //-   buton connect
+    //-     login(
+    //-       slot="dropdown"
+    //-       v-if=   "!$auth.$state.loggedIn"
+    //-     )
+    //-   buton notifications
 
-      buton connect
-        login(
-          slot="dropdown"
-          v-if=   "!$auth.$state.loggedIn"
-        )
-      buton notifications
-
-  hero(v-if=  "$route.name.indexOf('article') < 0")
+  hero(v-if=  "$route.path === '/'")
 
   nuxt
-  footer
-    p copyshit
+
+  //- footer
+  //-   p copyshit
 
   configurator(v-if="cfgEnabled")
+
+  navbar.main(:items="navigation" :icons="true")
+    form.your-comment
+      textarea(placeholder="Your comment")
+      input(type="submit" value="Post comment")
 </template>
 
 <script>
@@ -63,10 +67,38 @@ export default {
   data () {
     return {
       categories,
-      config
+      config,
+      nav: {
+        default: {
+          favs: 'Favourites',
+          top: 'Trending',
+          topics: 'Topics',
+          search: 'Search',
+          auth: 'Authenticate'
+        },
+        single: {
+          back: 'Back',
+          comment: 'Post a Comment',
+          star: 'Review Article',
+          bookmark: 'Bookmark',
+          share: 'Share'
+        }
+      }
     }
   },
   computed: {
+    activePageType () {
+      return this.$route.path.indexOf('/article/') === 0 ? 'single' : 'home'
+    },
+    navigation () {
+      switch (this.activePageType) {
+        case 'single':
+          return this.nav.single
+
+        default:
+          return this.nav.default
+      }
+    },
     ...mapGetters({
       'cfgOpen': 'configurator/open',
       'cfgEnabled': 'configurator/enabled'
@@ -89,6 +121,33 @@ export default {
 @require '~styles/base'
 @require './themes/' + theme + '/grid'
 
+nav.main
+  position fixed
+  bottom 0
+  width 100%
+  background #fafafa
+  display: flex;
+  flex-flow: column-reverse wrap;
+
+  .action
+    padding 20px
+
+  li
+    flex-basis 20%
+
+  a
+    flex-wrap nowrap
+    align-items center
+
+    &:before
+      margin-bottom 4px
+
+  > ul
+    display flex
+    flex-flow row nowrap
+    font-size 12px
+    text-align center
+
 .black
   background black
   color white
@@ -100,19 +159,21 @@ export default {
   position absolute
   size 40px
 
+#__layout
+  > .container
+    height 100vh
+
 .container
   width 100%
   max-width 100%
   overflow-x hidden
   display grid
-  grid-template-areas 'header header header'\
-                      'pageHead pageHead pageHead'\
-                      '. main .'\
+  grid-template-areas '. main .'\
                       '. aside .'\
                       '. video .'\
                       'footer footer footer'
 
-  grid-template-columns: minmax(10px, 2%) 1fr minmax(10px, 2%);
+  grid-template-columns: minmax(10px, 20px) 1fr minmax(10px, 20px);
   grid-template-rows: 170px minmax(30px, auto) 1fr minmax(100px, auto) auto minmax(80px, auto);
   grid-row-gap 1px
   grid-column-gap 1px

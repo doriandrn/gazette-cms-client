@@ -92,7 +92,7 @@ module.exports = {
         UI: resolve('components/UI'),
 
         data: resolve('data'),
-
+        images: resolve('static/images'),
         styles: resolve('assets/styles')
       })
 
