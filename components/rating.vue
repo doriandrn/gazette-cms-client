@@ -27,7 +27,7 @@ $starColor = rgba( black, .15 );
     width: 					$starWidth;
 
     &:not(:first-child)
-      margin-left 4px
+      margin-left 8px
 
     &:before
       size 12px

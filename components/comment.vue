@@ -1,45 +1,42 @@
 <template lang="pug">
-li(:class="{ byAuthor, userComment }")
-  user(:data= "author")
+li(:class="{ byAuthor, userComment, selected }")
+  user(:data= "author") {{ date }}
 
-  .comment__content
-    span.meta {{ date }}
-
-    h5 {{ title }}
+  .comment__content(@click="selectComment(id)")
     p {{ comment }}
 
-    .comment__actions(v-if="!replyingToThis")
-      .comment__reply
-        close
-        textarea(placeholder="your opinion")
-        span Markdown supported.
-      button like
-      button(@click="replyToComment(id)") reply
+    //- .comment__reply
+    //-   button(data-icon="close") Close
+    //-   textarea(placeholder="your opinion")
+    //-   span Markdown supported.
 
-    form.reply(v-else)
-      textarea
+  .comment__actions(v-if="selected && !replyingToThis")
+    button(data-icon="like") Like
+    button(@click="replyToComment(id)" data-icon="reply") Reply
 
-    ul(v-if=     "replies && replies.length")
-      button.more(
-        v-if="!repliesOpen"
-        @click="repliesOpen = !repliesOpen"
-      ) {{ replies.length }} {{ replies.length === 1 ? 'reply' : 'replies' }}
-      comment(
-        v-else
-        v-for=    "reply in replies",
-        :key=     "replies.indexOf(reply)",
-        :id=      "reply.id",
+  form.reply(v-if="replyingToThis")
+    textarea
 
-        :comment = "reply.comment",
-        :author  = "reply.author",
-        :title   = "replyTitle(title)",
-        :replies = "reply.replies",
-      )
+  ul(v-if=     "replies && replies.length")
+    button.more(
+      v-if="!repliesOpen"
+      @click="repliesOpen = !repliesOpen"
+    ) {{ replies.length }} {{ replies.length === 1 ? 'reply' : 'replies' }}
+    comment(
+      v-else
+      v-for=    "reply in replies",
+      :key=     "replies.indexOf(reply)",
+      :id=      "reply.id",
+
+      :comment = "reply.comment",
+      :author  = "reply.author",
+      :replies = "reply.replies",
+    )
 </template>
 
 <script>
 import user from 'c/social/user'
-import close from 'c/closeButton'
+
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -51,15 +48,20 @@ export default {
   },
   computed: {
     ...mapGetters({
-      replyingToComment: 'user/replyingToComment'
+      replyingToComment: 'user/replyingToComment',
+      selectedComment: 'comments/selected'
     }),
     replyingToThis () {
       return this.replyingToComment === this.id
+    },
+    selected () {
+      return this.selectedComment === this.id
     }
   },
   methods: {
     ...mapActions({
-      replyToComment: 'user/replyToComment'
+      replyToComment: 'user/replyToComment',
+      selectComment: 'comments/select'
     }),
     replyTitle (title) {
       return `Re: ${title}`
@@ -70,12 +72,6 @@ export default {
       type: [Number, String],
       default () {
         return 0
-      }
-    },
-    title: {
-      type: String,
-      default () {
-        return 'Comment title'
       }
     },
     comment: {
@@ -114,7 +110,6 @@ export default {
   },
   components: {
     user,
-    close
     // Comment
   },
   /* eslint-disable global-require */
@@ -126,23 +121,29 @@ export default {
 <style lang="stylus">
 .comment
   &__content
-    flex 1 1 auto
-    padding 0 16px
-    background white
-    // border-radius 3px
-    // box-shadow 0px 1px 2px rgba(black, .15)
-    border-left 1px solid rgba(black, .1)
+    flex 0 0 100%
     position relative
+    padding-top 20px
+    padding-left 32px
+
+    &:before
+      content ''
+      width 1px
+      position absolute
+      top: -12px;
+      left: 0px;
+      bottom: -80px;
+      background-color #eee
 
     > ul:last-child
       padding-top 12px // more replies button adjust
 
   &__actions
-    margin-top 20px
-    background #fafafa
+    margin-top 10px
+    margin-left 12px
 
     > *:not(:first-child)
-      margin-left 16px
+      margin-left 8px
 
   &__reply
     position relative

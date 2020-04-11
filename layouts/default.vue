@@ -29,8 +29,8 @@
 
   navbar.main(:items="navigation" :icons="true")
     form.your-comment
-      textarea(placeholder="Your comment")
-      input(type="submit" value="Post comment")
+      textarea(placeholder="Your comment" style="height: auto")
+      button(type="submit" value="Post comment" data-icon="send")
 </template>
 
 <script>
@@ -128,6 +128,15 @@ nav.main
   background #fafafa
   display: flex;
   flex-flow: column-reverse wrap;
+
+  form.your-comment
+    display flex
+    flex-flow row nowrap
+    button
+      margin-left 8px
+      margin-top auto
+    textarea
+      flex 1 1 100%
 
   .action
     padding 20px

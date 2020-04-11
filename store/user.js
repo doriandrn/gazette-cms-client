@@ -1,6 +1,7 @@
 const state = () => ({
   activeAction: '',
-  replyingToComment: ''
+  replyingToComment: '',
+  authenticated: false
 })
 
 const actions = {

@@ -21,7 +21,7 @@ article.article
         nuxt-link(:to="`/profile/${slugify(author.name)}`") {{ author.name }}
 
   section.article__footer.ui
-    h2 Comments
+    h2 Reactions
     ul.comments
       comment(
         v-for=    "comment in comments",
@@ -90,7 +90,9 @@ export default {
     margin 0 auto
 
   h1
-    margin-top 20px
+  .rating
+  .article__content
+    margin-top 32px
 
   &__meta
     display flex
@@ -100,11 +102,8 @@ export default {
       display inline-block
       vertical-align baseline
       font-family: fonts.ui
-      margin 0 16px
       margin-left auto
       font-size 10px
-      text-transform uppercase
-      letter-spacing 1px
       color: #666
 
   &__featured
@@ -135,10 +134,11 @@ borderColor = rgba(black, .05)
     &:not(:first-child)
       margin-left 4px
   a
-    background #fafafa
-    border-radius 2px
-    padding 4px 8px
-    color #aaa
+    border-radius: 2px;
+    padding: 6px 10px;
+    color: #666;
+    font-size: 12px;
+    border: 1px solid rgba(0,0,0,.05);
 
 commentList()
   list-style none
@@ -151,6 +151,19 @@ commentList()
   max-width 640px
   margin 0 auto
 
+  .user
+    flex 0 0 100%
+
+    > p
+      font-size 11px
+      line-height 24px
+      display flex
+
+      a
+        margin-right 12px
+        padding-right 12px
+
+
   // more
   .show
     width 100%
@@ -160,11 +173,11 @@ commentList()
     margin-top 20px
 
   h5
-    margin-bottom 8px
+    margin-top 8px
 
   ul
     commentList()
-    margin-left -40px
+    margin-left 10px
 
     h5
       font-size 12px
@@ -175,7 +188,7 @@ commentList()
 
   li
     display flex
-    flex-flow row nowrap
+    flex-flow row wrap
     position relative
     margin-top 16px
     margin-bottom 16px
@@ -188,7 +201,7 @@ commentList()
 
     p
       font-size 14px
-      line-height 24px
+      line-height 18px
       font-weight normal
 
       &:last-of-type
@@ -206,6 +219,7 @@ commentList()
 
       &:before
         opacity .55
+        background-size 12px
 
       &:hover
         color initial

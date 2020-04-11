@@ -1,9 +1,9 @@
 <template lang="pug">
 .user
   avatar
+  p #[nuxt-link(:to="`/profile/${data.id}`") {{ data.name }}] #[slot]
   .user__more
-    h4 {{ data.name }}
-    p user.bio
+    p {{ data.bio }}
     .user__social
       p socials
     .user__actions
@@ -19,6 +19,7 @@ export default {
       type: Object,
       default: () => ({
         name: 'John Doe',
+        id: 3,
         bio: 'Artist',
         socials: []
       })
@@ -32,8 +33,12 @@ export default {
 
 <style lang="stylus">
 .user
+  display flex
+  flex-flow row nowrap
+
   .avatar
     margin-right 16px
+
   &__more
     display none
 </style>
