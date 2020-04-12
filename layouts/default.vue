@@ -1,22 +1,7 @@
 <template lang="pug">
 .container(:class="{ 'configurator--open': cfgOpen }")
-  //- buton.burger(icon="burger", title="Toggle mobile navigation")
-  //-   span
-  //-   span
-  //-   span
-
-  //- headr.header.ui
-  //-   logo(slot="top")
-
-    //- actions(slot="top")
-    //-   input(type="search")
-
-    //-   buton connect
-    //-     login(
-    //-       slot="dropdown"
-    //-       v-if=   "!$auth.$state.loggedIn"
-    //-     )
-    //-   buton notifications
+  headr.header.ui
+    logo(slot="top")
 
   hero(v-if=  "$route.path === '/'")
 
@@ -27,10 +12,13 @@
 
   configurator(v-if="cfgEnabled")
 
-  navbar.main(:items="navigation" :icons="true")
-    form.your-comment
+  main-nav.main(:items="navigation" :icons="true")
+    form.your-comment(v-if="activeAction === 'comment'")
       textarea(placeholder="Your comment" style="height: auto")
       button(type="submit" value="Post comment" data-icon="send")
+
+    div.share(v-else-if="activeAction === 'share'")
+      p sharee this shit
 </template>
 
 <script>
@@ -38,13 +26,13 @@ import headr from 'c/header'
 import hero from 'c/hero'
 
 import navbar from 'UI/navbars/default'
+import mainNav from 'UI/navbars/main'
 import actions from 'UI/actions'
 
 import logo from 'c/logo'
 import configurator from 'c/configurator'
 
 import login from 'c/login'
-import buton from 'c/button'
 import categories from 'data/categories'
 
 import { mapGetters, mapActions } from 'vuex'
@@ -71,7 +59,7 @@ export default {
       nav: {
         default: {
           favs: 'Favourites',
-          top: 'Trending',
+          trending: 'Trending',
           topics: 'Topics',
           search: 'Search',
           auth: 'Authenticate'
@@ -101,7 +89,8 @@ export default {
     },
     ...mapGetters({
       'cfgOpen': 'configurator/open',
-      'cfgEnabled': 'configurator/enabled'
+      'cfgEnabled': 'configurator/enabled',
+      'activeAction': 'user/action'
     })
   },
   components: {
@@ -111,8 +100,8 @@ export default {
     navbar,
     logo,
     login,
-    buton,
-    configurator
+    configurator,
+    mainNav
   }
 }
 </script>
@@ -145,11 +134,14 @@ nav.main
     flex-basis 20%
 
   a
+  button
     flex-wrap nowrap
     align-items center
+    width 100%
 
     &:before
       margin-bottom 4px
+      background-size 20px
 
   > ul
     display flex
@@ -177,7 +169,8 @@ nav.main
   max-width 100%
   overflow-x hidden
   display grid
-  grid-template-areas '. main .'\
+  grid-template-areas '. header .'\
+                      '. main .'\
                       '. aside .'\
                       '. video .'\
                       'footer footer footer'
@@ -222,22 +215,10 @@ header
     flex-direction row
     flex-wrap wrap
 
-  nav
-    background black
-    color white
-    padding 4px 16px
-    width 100%
-
-    ul
-      justify-content center
-
-    a
-      color white
-
 .page__head
   grid-area pageHead
 
-.main
+main
   grid-area main
 
 footer

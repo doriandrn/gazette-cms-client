@@ -1,6 +1,12 @@
-ui = like reply send star comment close document back bookmark unbookmark favs auth topics config share
+ui = search like reply trending send star comment close document back bookmark unbookmark favs auth topics config share
+socials = github facebook
 
 for icon in ui
   [data-icon={icon}]
     &:before
       background-image: embedurl('./assets/icons/ui/' + icon + '.svg')
+
+for icon in socials
+  [data-icon={icon}]
+    &:before
+      background-image: embedurl('./assets/icons/social/' + icon + '.svg')

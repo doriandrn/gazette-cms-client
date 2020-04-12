@@ -3,22 +3,11 @@ nav(:data-vertical="vertical")
   ul(v-if="items")
     li(v-for="item, id in items")
       nuxt-link(:to="`/${ slugify(item.name) }`" :data-icon="icons ? item.icon || id : null") {{ item.name || item }}
-
-  .action(v-if="$slots.default")
-    button(data-icon="close" @click="doAction('')")
-    .action__content
-      slot
+  slot
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
-  methods: {
-    ...mapActions({
-      doAction: 'user/doAction'
-    })
-  },
   props: {
     icons: {
       type: Boolean
@@ -45,6 +34,7 @@ export default {
 <style lang="stylus">
 nav
   a
+  button
     display flex
     flex-flow column wrap
     padding 8px 16px
@@ -58,9 +48,6 @@ nav
     display flex
     flex-wrap wrap
     grid-auto-rows 40px
-
-  .action
-    position relative
 
   &:not([data-vertical])
     ul

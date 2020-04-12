@@ -11,18 +11,16 @@
 
   .login__social
     label sign in with
-    but(
+    button(
       v-for="s in strategies"
-      :key="s.key"
       @click="$auth.loginWith(s.key)"
       :title="`Login with ${s.name}`"
-      :icon=  "s.key"
+      :data-icon=  "s.key"
     ) {{ s.name }}
 </template>
 
 <script>
 import frm from 'c/form'
-import but from 'c/button'
 
 const formfields = {
   username: {
@@ -55,8 +53,7 @@ export default {
   },
 
   components: {
-    frm,
-    but
+    frm
   }
 }
 </script>
