@@ -19,6 +19,9 @@
 
     div.share(v-else-if="activeAction === 'share'")
       p sharee this shit
+
+    form.search(v-else-if="activeAction === 'search'")
+      input(type="search")
 </template>
 
 <script>
@@ -118,12 +121,19 @@ nav.main
   display: flex;
   flex-flow: column-reverse wrap;
 
-  form.your-comment
+  form
+    padding-right 40px
     display flex
-    flex-flow row nowrap
-    button
-      margin-left 8px
-      margin-top auto
+
+    &.your-comment
+      display flex
+      flex-flow row nowrap
+
+      button
+        margin-left 8px
+        margin-top auto
+
+    input
     textarea
       flex 1 1 100%
 
@@ -133,15 +143,16 @@ nav.main
   li
     flex-basis 20%
 
-  a
-  button
-    flex-wrap nowrap
-    align-items center
-    width 100%
+  ul
+    a
+    button
+      flex-wrap nowrap
+      align-items center
+      width 100%
 
-    &:before
-      margin-bottom 4px
-      background-size 20px
+      &:before
+        margin-bottom 4px
+        background-size 20px
 
   > ul
     display flex
@@ -155,10 +166,6 @@ nav.main
 
   a
     color white
-
-.burger
-  position absolute
-  size 40px
 
 #__layout
   > .container

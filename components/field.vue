@@ -1,9 +1,10 @@
 <template lang="pug">
-div(:class="{ error }")
+div(:class="{ errors }")
+
   label(
     v-if=   "type !== 'submit'"
     :for=   "id"
-  ) {{ label }} #[em(v-if="!(v && v.indexOf('required') > -1)") opt]
+  ) {{ label }} #[em(v-if="!(rules && rules.indexOf('required') > -1)") opt]
   input(
     :type=          "type"
     :name=          "name"
@@ -13,7 +14,13 @@ div(:class="{ error }")
     :checked=       "checked"
     @input=        "$emit('input', $event.target.value)"
   )
-  p.error(v-if="error") {{ error }}
+
+  ul.errors(v-if="errors")
+    err(
+      v-for=  "error, i in errors"
+      :key= "i"
+    ) {{ error.message || error.msg || 'undefiend message' }}
+
 </template>
 
 <script lang="ts">
@@ -40,14 +47,15 @@ export default {
     value: {
       type: [Number, String, Object, Array]
     },
-    v: {
-      type: String
+    rules: {
+      type: [Object, String],
+      default: ""
     },
     checked: {
       type: Boolean
     },
-    error: {
-      type: String
+    errors: {
+      type: Array
     },
     name: {
       type: String

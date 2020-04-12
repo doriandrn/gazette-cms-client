@@ -20,7 +20,7 @@ export default {
       doAction: 'user/doAction'
     }),
     itemIsLink (id) {
-      return ['auth', 'favs'].indexOf(id) > -1
+      return ['auth', 'favs', 'topics'].indexOf(id) > -1
     }
   },
   props: {

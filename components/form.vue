@@ -1,52 +1,90 @@
 <template lang="pug">
-form
-  fieldset
-    field(
-      v-for=  "field, id in fields_"
-      :name=  "id"
-      :type=  "field.type"
-      :key=   "id"
-      :id=    "id"
-      :label= "id"
+ValidationObserver(v-slot="{ passed, errors }")
+  form(@submit.prevent="passed(submit)")
+    fieldset(v-for="fieldset in fieldsets")
+      legend {{ fieldset.legend }}
+      field(
+        v-for=  "field, id in fieldset.fields"
+        :name=  "id"
+        :type=  "field.type"
+        :key=   "id"
+        :id=    "id"
+        :label= "id"
 
-      v-model=  "$data[id]"
+        v-model=  "$data[id]"
+        :errors=  "errors && errors.length ? errors.filter(err => err.param === id) : null"
+        :rules=   "field.v || null"
+      )
+
+    input(
+      type= "submit"
     )
-
-  input(
-    type= "submit"
-  )
 </template>
 
 <script lang="ts">
-// import { Component } from 'nuxt-property-decorator'
 import Vue from 'vue'
+import { ValidationObserver, extend } from 'vee-validate';
+import { required, confirmed, length, email } from "vee-validate/dist/rules";
 
 import field from 'c/field'
 
+extend("required", {
+  ...required,
+  message: "This field is required"
+});
+
+extend("email", {
+  ...email,
+  message: "This field must be a valid email"
+});
+
+extend("confirmed", {
+  ...confirmed,
+  message: "This field confirmation does not match"
+});
+
+extend("length", {
+  ...length,
+  message: "This field must have 2 options"
+});
+
 export default {
+  // data () {
+  //   const data = {}
+  //   Object.keys(this.fieldssets).map(f => { data[f] = undefined } )
+  //   return data
+  // },
   data () {
-    const data = {}
-    Object.keys(this.fields_).map(f => { data[f] = undefined } )
+    const data = {
+      // errors: []
+    }
+    Object.keys(this.fieldsets).map(fieldset => {
+      Object.keys(this.fieldsets[fieldset].fields).map(field => {
+        data[field] = ''
+      })
+    })
     return data
+    // return form.componentData(isNew, this.$store.getters)
   },
   components: {
-    field
+    field,
+    ValidationObserver
+  },
+  methods: {
+    submit () {
+      this.$children[0].validate().then(ok => {
+        if (ok) this.$emit('submit', this.$data)
+      })
+    },
   },
   props: {
     name: {
       type: String,
       default: 'unnamed'
     },
-    fields_: {
-      type: Object,
-      default () {
-        return {
-          username: {
-            type: 'text',
-            v: 'required'
-          }
-        }
-      }
+    fieldsets: {
+      type: Array,
+      required: true
     }
   }
 }

@@ -1,41 +1,47 @@
 <template lang="pug">
 .login
-  .login__form
-    frm(
-      name= "login"
-      :fields_ = "formfields"
-      @submit = "$auth.loginWith('local', { data: loginData })"
-    )
-
-    a Forgot your password?
-
   .login__social
-    label sign in with
+    label Sign in with:
     button(
       v-for="s in strategies"
       @click="$auth.loginWith(s.key)"
       :title="`Login with ${s.name}`"
       :data-icon=  "s.key"
     ) {{ s.name }}
+
+  span.or or
+
+  .login__form
+    frm(
+      name= "login"
+      :fieldsets = "fieldsets"
+      @submit = "$auth.loginWith('local', { data: loginData })"
+    )
+
+    button.forgot Forgot your password?
+
 </template>
 
 <script>
 import frm from 'c/form'
 
-const formfields = {
-  username: {
-    v: 'required'
-  },
-  password: {
-    v: 'required',
-    type: 'password'
+const fieldsets = [{
+  legend: "login",
+  fields: {
+    username: {
+      v: 'required'
+    },
+    password: {
+      v: 'required',
+      type: 'password'
+    }
   }
-}
+}]
 
 export default {
   data () {
     return {
-      formfields
+      fieldsets
     }
   },
 
@@ -59,6 +65,27 @@ export default {
 </script>
 
 <style lang="stylus">
+.or
+  margin 40px 0
+  position relative
+  display block
+  font-size 11px
+
+  &:before
+  &:after
+    content ''
+    height 1px
+    width 45%
+    position absolute
+    top calc(50% + 1px)
+    background #eee
+
+  &:before
+    left 0
+
+  &:after
+    right 0
+
 .login
   text-align center
 
