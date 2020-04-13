@@ -41,6 +41,7 @@ nav
     text-decoration none
     font-size 10px
     line-height 12px
+    color #666
 
   ul
     padding 0

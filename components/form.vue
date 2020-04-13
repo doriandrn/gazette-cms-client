@@ -1,6 +1,6 @@
 <template lang="pug">
-ValidationObserver(v-slot="{ passed, errors }")
-  form(@submit.prevent="passed(submit)")
+ValidationObserver(v-slot="{ passes, errors }")
+  form(@submit.prevent="passes(submit)")
     fieldset(v-for="fieldset in fieldsets")
       legend {{ fieldset.legend }}
       field(
@@ -18,6 +18,7 @@ ValidationObserver(v-slot="{ passed, errors }")
 
     input(
       type= "submit"
+      :disabled=  "submitDisabled"
     )
 </template>
 
@@ -49,15 +50,8 @@ extend("length", {
 });
 
 export default {
-  // data () {
-  //   const data = {}
-  //   Object.keys(this.fieldssets).map(f => { data[f] = undefined } )
-  //   return data
-  // },
   data () {
-    const data = {
-      // errors: []
-    }
+    const data = {}
     Object.keys(this.fieldsets).map(fieldset => {
       Object.keys(this.fieldsets[fieldset].fields).map(field => {
         data[field] = ''
@@ -65,6 +59,13 @@ export default {
     })
     return data
     // return form.componentData(isNew, this.$store.getters)
+  },
+  computed: {
+    submitDisabled () {
+      return Object.keys(this.$data)
+        .filter(fieldId => !this.$data[fieldId])
+        .length > 0
+    }
   },
   components: {
     field,
@@ -95,9 +96,14 @@ form
   input[type="submit"]
     margin-top 16px
 
+  legend
+    text-align center
+    text-transform capitalize
+
   label
     line-height 20px
     margin-bottom 4px
+
   ul
     > li
       padding 0

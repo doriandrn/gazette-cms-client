@@ -1,13 +1,14 @@
 <template lang="pug">
 .login
-  .login__social
-    label Sign in with:
-    button(
-      v-for="s in strategies"
-      @click="$auth.loginWith(s.key)"
-      :title="`Login with ${s.name}`"
-      :data-icon=  "s.key"
-    ) {{ s.name }}
+  form.login__social
+    fieldset
+      legend Sign in with:
+      button(
+        v-for="s in strategies"
+        @click="$auth.loginWith(s.key)"
+        :title="`Login with ${s.name}`"
+        :data-icon=  "s.key"
+      ) {{ s.name }}
 
   span.or or
 
@@ -15,7 +16,7 @@
     frm(
       name= "login"
       :fieldsets = "fieldsets"
-      @submit = "$auth.loginWith('local', { data: loginData })"
+      @submit = "userLogin"
     )
 
     button.forgot Forgot your password?
@@ -51,10 +52,17 @@ export default {
      { key: 'google', name: 'Google', color: '#4284f4' },
      { key: 'facebook', name: 'Facebook', color: '#3c65c4' },
      { key: 'github', name: 'GitHub', color: '#202326' }
-    ]),
-    loginData () {
-      const { username, password } = this
-      return { username, password }
+    ])
+  },
+
+  methods: {
+    async userLogin() {
+      try {
+        let response = await this.$auth.loginWith('local', { data: { ...this.$data } })
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
 
@@ -89,13 +97,21 @@ export default {
 .login
   text-align center
 
+  &__form
+    form
+      max-width 360px
+      margin 0 auto
+
+    .forgot
+      margin-top 32px
+      font-size 12px
+
   &__social
-    > label
+    fieldset
       display block
       text-align center
-      margin-bottom 16px
 
-    > button
+    button
       font-size 0
 
   input

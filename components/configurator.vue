@@ -9,7 +9,7 @@
 
       ul
         li(v-for= "configOption in Object.keys(section[category])")
-          configOption(
+          field(
             v-if    ="section[category][configOption].type !== undefined"
             :id     ="configOption"
             :options= "{}"
@@ -25,10 +25,14 @@ button#gconfigOpen(
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import config from '../userConfig'
+import field from 'c/field'
 
 export default {
   data () {
     return config
+  },
+  components: {
+    field
   },
   methods: {
     ...mapActions({
@@ -59,7 +63,9 @@ export default {
   &Open
     font-size 0
     position fixed
-    background yellow
-    top 200px
-    right 0
+    background: rgba(black, .05);
+    top: -16px;
+    padding: 16px;
+    right: -16px;
+    border-radius: 50px;
 </style>

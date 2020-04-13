@@ -1,5 +1,6 @@
 <template lang="pug">
 main#auth
+  //- h1 Authenticate with
   login
 </template>
 

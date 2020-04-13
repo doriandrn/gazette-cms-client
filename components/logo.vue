@@ -1,6 +1,6 @@
 <template lang="pug">
 nuxt-link(:to="href").logo Logo
-  img(src="logo.svg")
+  img(src="logo.svg" alt="Logo")
 </template>
 
 <script>

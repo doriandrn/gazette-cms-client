@@ -1,30 +1,41 @@
 <template lang="pug">
-div(:class="{ errors }")
-
+ValidationProvider(
+  :vid=   "id"
+  :name=  "label"
+  :rules= "rules"
+  v-slot= "{ errors }"
+)
   label(
     v-if=   "type !== 'submit'"
-    :for=   "id"
+    :for=   "name"
   ) {{ label }} #[em(v-if="!(rules && rules.indexOf('required') > -1)") opt]
   input(
     :type=          "type"
     :name=          "name"
+    :id=            "name"
     :placeholder=   "placeholder"
     :disabled=      "disabled"
     :value=         "value"
     :checked=       "checked"
+    :class=         " { error: errors && errors.length }"
     @input=        "$emit('input', $event.target.value)"
   )
 
   ul.errors(v-if="errors")
-    err(
+    li(
       v-for=  "error, i in errors"
       :key= "i"
-    ) {{ error.message || error.msg || 'undefiend message' }}
+    ) {{ error.message || error.msg || error || 'Undefined message' }}
 
 </template>
 
 <script lang="ts">
+import { ValidationProvider } from 'vee-validate'
+
 export default {
+  components: {
+    ValidationProvider
+  },
   props: {
     label: {
       type: String,
@@ -66,8 +77,7 @@ export default {
 
 <style lang="stylus">
 .error
-  input
-    border-color red !important
+  border-color red !important
 
 p.error
   font-size 12px

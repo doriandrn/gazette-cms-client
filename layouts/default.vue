@@ -1,7 +1,8 @@
 <template lang="pug">
 .container(:class="{ 'configurator--open': cfgOpen }")
-  headr.header.ui
-    logo(slot="top")
+  header.header.ui
+    .container__inner
+      logo
 
   hero(v-if=  "$route.path === '/'")
 
@@ -25,7 +26,6 @@
 </template>
 
 <script>
-import headr from 'c/header'
 import hero from 'c/hero'
 
 import navbar from 'UI/navbars/default'
@@ -99,7 +99,6 @@ export default {
   components: {
     hero,
     actions,
-    headr,
     navbar,
     logo,
     login,
@@ -213,6 +212,11 @@ nav.main
 
 header
   grid-area header
+
+  .logo
+    margin 0 auto
+    img
+      max-height 36px
 
   .actions
     max-height 36px
