@@ -56,12 +56,14 @@ export default {
   },
 
   methods: {
-    async userLogin() {
+    async userLogin(data) {
       try {
-        let response = await this.$auth.loginWith('local', { data: { ...this.$data } })
+        let response = await this.$auth.loginWith('local', { data })
         console.log(response)
+        this.$toast.success(response)
       } catch (err) {
         console.log(err)
+        this.$toast.error(err)
       }
     }
   },

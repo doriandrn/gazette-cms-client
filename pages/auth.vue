@@ -10,6 +10,8 @@ import login from 'c/login'
 export default {
   components: {
     login
-  }
+  },
+  // middleware: 'auth'
+  // auth: 'guest'
 }
 </script>

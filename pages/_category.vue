@@ -9,7 +9,11 @@ import categories from 'data/categories'
 export default {
   computed: {
     title () {
-      return categories.filter(cat => this.slugify(cat.name) === this.$route.params.category)[0].name || 'Uncategorized'
+      try {
+         return categories.filter(cat => this.slugify(cat.name) === this.$route.params.category)[0].name || 'Uncategorized'
+      } catch (e) {
+        return undefined
+      }
     }
   }
 }

@@ -86,6 +86,10 @@ export default {
     fieldsets: {
       type: Array,
       required: true
+    },
+    useToastServerErrors: {
+      type: Boolean,
+      default: true
     }
   }
 }
