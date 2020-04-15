@@ -114,19 +114,25 @@ module.exports = {
   },
 
   proxy: {
-    '/api/': 'http://localhost:7331'
+    '/api': 'http://localhost:7331/api'
   },
 
   auth: {
     redirect: {
       callback: '/callback',
-      logout: '/signed-out'
+      logout: '/',
+      login: '/auth'
     },
     strategies: {
       local: {
         token: {
           property: 'token.accessToken'
-        }
+        },
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token.accessToken' },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+        },
       },
       localRefresh: {
         _scheme: 'refresh',

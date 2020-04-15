@@ -1,4 +1,4 @@
-ui = search like reply trending send star comment close document back bookmark unbookmark favs auth topics config share
+ui = plus minus search like reply trending send star comment close document back bookmark unbookmark favs auth topics config share
 socials = google github facebook auth0
 
 for icon in ui
@@ -10,3 +10,8 @@ for icon in socials
   [data-icon={icon}]
     &:before
       background-image: embedurl('./assets/icons/social/' + icon + '.svg')
+
+.avatar
+  &:before
+    background-image: embedurl('assets/icons/ui/defaultavatar.svg')
+    size 90%

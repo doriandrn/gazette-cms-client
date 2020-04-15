@@ -19,7 +19,7 @@
       button(type="submit" value="Post comment" data-icon="send")
 
     div.share(v-else-if="activeAction === 'share'")
-      p sharee this shit
+      p share this shit
 
     form.search(v-else-if="activeAction === 'search'")
       input(type="search")
@@ -60,18 +60,13 @@ export default {
       categories,
       config,
       nav: {
-        default: {
-          favs: 'Favourites',
+        def: {
           trending: 'Trending',
           topics: 'Topics',
           search: 'Search',
-          auth: 'Authenticate'
         },
         single: {
           back: 'Back',
-          comment: 'Post a Comment',
-          star: 'Review Article',
-          bookmark: 'Bookmark',
           share: 'Share'
         }
       }
@@ -82,12 +77,30 @@ export default {
       return this.$route.path.indexOf('/article/') === 0 ? 'single' : 'home'
     },
     navigation () {
+      // const { single, def } = this.nav
+      const single = { ...this.nav.single }
+      const def = { ...this.nav.def }
+      const { loggedIn } = this.$auth
+
+      if (loggedIn) {
+        def.favs = 'Favourites'
+        def.profile = 'Profile'
+
+        Object.assign(single, {
+          comment: 'Post a Comment',
+          star: 'Review Article',
+          bookmark: 'Bookmark',
+        })
+      } else {
+        def.auth = 'Authenticate'
+      }
+
       switch (this.activePageType) {
         case 'single':
-          return this.nav.single
+          return single
 
         default:
-          return this.nav.default
+          return def
       }
     },
     ...mapGetters({
@@ -140,7 +153,7 @@ nav.main
     padding 20px
 
   li
-    flex-basis 20%
+    flex 1 1 20%
 
   ul
     a

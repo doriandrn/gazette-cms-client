@@ -20,8 +20,8 @@ export default {
       doAction: 'user/doAction'
     }),
     itemIsLink (id) {
-      return ['auth', 'favs', 'topics'].indexOf(id) > -1
-    }
+      return ['profile', 'auth', 'favs', 'topics'].indexOf(id) > -1
+    },
   },
   props: {
     icons: {

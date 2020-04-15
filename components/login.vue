@@ -19,7 +19,7 @@
       @submit = "userLogin"
     )
 
-    button.forgot Forgot your password?
+    button.forgot(v-if="attempts > 1") Forgot your password?
 
 </template>
 
@@ -42,7 +42,8 @@ const fieldsets = [{
 export default {
   data () {
     return {
-      fieldsets
+      fieldsets,
+      attempts: 0
     }
   },
 
@@ -57,13 +58,14 @@ export default {
 
   methods: {
     async userLogin(data) {
+      let response
       try {
-        let response = await this.$auth.loginWith('local', { data })
+        response = await this.$auth.loginWith('local', { data })
         console.log(response)
-        this.$toast.success(response)
+        this.$toast.success('Login successful!')
       } catch (err) {
-        console.log(err)
-        this.$toast.error(err)
+        this.attempts += 1
+        this.$toast.error('Invalid credentials')
       }
     }
   },

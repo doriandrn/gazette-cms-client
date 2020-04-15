@@ -1,6 +1,6 @@
 <template lang="pug">
 .avatar
-  img.avatar(:src="avatarImg(avatar)")
+  img(:src="avatarImg(avatar)")
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
       try {
         return require(`~/static/images/avatars/${id.toLowerCase()}.jpg`)
       } catch (e) {
-        return
+        return id
       }
     }
   }

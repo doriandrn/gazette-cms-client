@@ -42,6 +42,7 @@ import userConfig from '../userConfig'
 const { homepage } = userConfig.layout
 
 export default {
+  name: 'homepage',
   data () {
     return {
       ...homeData,

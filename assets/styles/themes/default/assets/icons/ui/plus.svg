@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Fill 67</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-591.000000, -6130.000000)" fill="#0B0C0A">
+            <g id="Fill-67" transform="translate(591.000000, 6130.000000)">
+                <path d="M23,11 L13,11 L13,1.001 C13,0.448 12.574,0 12.021,0 C11.468,0 11.021,0.447 11.021,0.999 L11.012,11 L1,11 C0.447,11 0,11.447 0,12 C0,12.552 0.447,13 1,13 L11.01,13 L11,22.999 C10.999,23.551 11.446,23.999 11.998,24 L11.999,24 C12.551,24 12.999,23.553 13,23.001 L13,13 L23,13 C23.552,13 24,12.552 24,12 C24,11.447 23.552,11 23,11"></path>
+            </g>
+        </g>
+    </g>
+</svg>
