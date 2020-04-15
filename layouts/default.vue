@@ -158,13 +158,15 @@ nav.main
   ul
     a
     button
-      flex-wrap nowrap
+      flex-flow row wrap
       align-items center
+      justify-content center
       width 100%
 
       &:before
         margin-bottom 4px
         background-size 20px
+        flex 1 1 100%
 
   > ul
     display flex

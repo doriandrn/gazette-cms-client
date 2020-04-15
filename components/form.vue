@@ -103,6 +103,7 @@ form
   legend
     text-align center
     text-transform capitalize
+    margin-bottom 20px
 
   label
     line-height 20px
@@ -113,7 +114,8 @@ form
       padding 0
 
   > fieldset
-    > div
-      &+div
+    > span
+      display block
+      &+span
         margin-top 8px
 </style>

@@ -3,12 +3,13 @@
   form.login__social
     fieldset
       legend Sign in with:
-      button(
-        v-for="s in strategies"
-        @click="$auth.loginWith(s.key)"
-        :title="`Login with ${s.name}`"
-        :data-icon=  "s.key"
-      ) {{ s.name }}
+      .socials
+        button(
+          v-for="s in strategies"
+          @click="$auth.loginWith(s.key)"
+          :title="`Login with ${s.name}`"
+          :data-icon=  "s.key"
+        ) {{ s.name }}
 
   span.or or
 
@@ -77,6 +78,11 @@ export default {
 </script>
 
 <style lang="stylus">
+.socials
+  display flex
+  flex-flow row nowrap
+  justify-content center
+
 .or
   margin 40px 0
   position relative

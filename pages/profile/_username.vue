@@ -1,6 +1,6 @@
 <template lang="pug">
 main.profile
-  h1 Profile
+  //- h1 Profile
 
   div(v-if="profile")
     avatar.profile__pic(:avatar="profile.picture")
@@ -38,12 +38,16 @@ export default {
 
 
 <style lang="stylus" scoped>
-button.follow[data-icon]
-  font-size 16px
+.profile
+  h3
+    &+p.meta
+      margin-top -16px
+
+  button.follow[data-icon]
+    font-size 16px
     &:before
       background-size 12px
 
-.profile
   > div
     display flex
     flex-flow column nowrap
