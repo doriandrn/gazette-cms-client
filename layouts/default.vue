@@ -66,7 +66,6 @@ export default {
           search: 'Search',
         },
         single: {
-          back: 'Back',
           share: 'Share'
         }
       }
@@ -74,10 +73,16 @@ export default {
   },
   computed: {
     activePageType () {
-      return this.$route.path.indexOf('/article/') === 0 ? 'single' : 'home'
+      const { path } = this.$route
+      if (path.indexOf('/profile/') === 0) {
+        return 'profile'
+      }
+      return path.indexOf('/article/') === 0 ? 'single' : 'home'
     },
     navigation () {
       // const { single, def } = this.nav
+
+      const back = { back: 'Back' }
       const single = { ...this.nav.single }
       const def = { ...this.nav.def }
       const { loggedIn } = this.$auth
@@ -95,9 +100,16 @@ export default {
         def.auth = 'Authenticate'
       }
 
+
       switch (this.activePageType) {
         case 'single':
-          return single
+          return Object.assign({}, { ...back }, single)
+
+        case 'profile':
+          return Object.assign({}, { ...back }, {
+            follow: 'Follow',
+            dm: 'Message'
+          })
 
         default:
           return def

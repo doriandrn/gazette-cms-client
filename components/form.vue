@@ -14,11 +14,12 @@ ValidationObserver(v-slot="{ passes, errors }")
         v-model=  "$data[id]"
         :errors=  "errors && errors.length ? errors.filter(err => err.param === id) : null"
         :rules=   "field.v || null"
+        :disabled=  "busy"
       )
 
     input(
       type= "submit"
-      :disabled=  "submitDisabled"
+      :disabled=  "submitDisabled || busy"
     )
 </template>
 
@@ -90,6 +91,9 @@ export default {
     useToastServerErrors: {
       type: Boolean,
       default: true
+    },
+    busy: {
+      type: Boolean
     }
   }
 }

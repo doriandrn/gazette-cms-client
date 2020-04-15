@@ -1,5 +1,5 @@
 <template lang="pug">
-.login
+.login(v-if= "activeFormId === 'login'")
   form.login__social
     fieldset
       legend Sign in with:
@@ -15,13 +15,24 @@
 
   .login__form
     frm(
-      name= "login"
-      :fieldsets = "fieldsets"
-      @submit = "userLogin"
+      name=         "login"
+      :fieldsets =  "forms.login.fieldsets"
+      @submit =     "userLogin"
+      :busy =       "$auth.busy"
     )
 
     button.forgot(v-if="attempts > 1") Forgot your password?
+    button(@click="activeFormId = 'register'") Need an account? Register
 
+.register(v-else-if=  "activeFormId === 'register'")
+  h2 Register
+  button(@click="activeFormId = 'login'") Back to login
+  frm(
+    name=         "register"
+    :fieldsets =  "forms.register.fieldsets"
+    @submit =     "userRegister"
+    :busy =       "$auth.busy"
+  )
 </template>
 
 <script>
@@ -43,8 +54,21 @@ const fieldsets = [{
 export default {
   data () {
     return {
-      fieldsets,
-      attempts: 0
+      forms: {
+        login: { fieldsets },
+        register: { fieldsets: [{
+          legend: 'Personal Details',
+          fields: {
+            name: {},
+            email: {},
+            username: {},
+            pass: {},
+            confirmPass: {}
+          }
+        }] }
+      },
+      attempts: 0,
+      activeFormId: 'login'
     }
   },
 
