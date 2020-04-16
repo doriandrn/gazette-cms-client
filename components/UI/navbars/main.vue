@@ -31,7 +31,7 @@ export default {
       }
     },
     itemIsLink (id) {
-      return ['profile', 'auth', 'favs', 'topics'].indexOf(id) > -1
+      return ['profile', 'auth', 'favs', 'topics', 'trending'].indexOf(id) > -1
     },
   },
   props: {

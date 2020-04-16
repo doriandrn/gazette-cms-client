@@ -46,10 +46,6 @@ import navbar from 'UI/navbars/default'
 import comment from 'c/comment'
 import rating from 'c/rating'
 
-import categories from 'data/categories'
-import authors from 'data/authors'
-import articleDefault from 'data/articles/default'
-
 export default {
   components: {
     navbar,
@@ -57,23 +53,23 @@ export default {
     featured,
     rating
   },
-  asyncData ({ params }) {
-    let data
+  async asyncData ({ params, $axios }) {
+    const { slug } = params
     try {
-      data = require(`data/articles/${ params.id }.js`).default
+      const { data } = await $axios.get(`api/content/${slug}`)
+      console.log('d', data)
 
-      if (data.categories.length) {
-        data.categories = data.categories.map(catId => categories[catId])
-      }
+      // if (data.categories.length) {
+      //   data.categories = data.categories.map(catId => categories[catId])
+      // }
 
-      if (data.authors.length) {
-        data.authors = data.authors.map(authorId => authors[authorId])
-      }
+      // if (data.authors.length) {
+      //   data.authors = data.authors.map(authorId => authors[authorId])
+      // }
 
       return data
     } catch (e) {
       console.error('Eroare la cerere de articol:', e)
-      return articleDefault
     }
   }
 }

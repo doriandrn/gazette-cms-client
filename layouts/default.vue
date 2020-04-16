@@ -97,7 +97,7 @@ export default {
       if (loggedIn) {
         Object.assign(def, {
           favs: 'Favourites',
-          profile: 'Profilee'
+          profile: 'Profile'
         })
 
         Object.assign(profile, {
