@@ -1,6 +1,6 @@
 <template lang="pug">
 .avatar
-  img(:src="avatarImg(avatar)")
+  img(v-if="avatar" :src="` data:image/jpeg;charset=utf-8;base64,${avatar}`")
 </template>
 
 <script>
@@ -14,15 +14,15 @@ export default {
       default: false
     }
   },
-  methods: {
-    avatarImg (id) {
-      try {
-        return require(`~/static/images/avatars/${id.toLowerCase()}.jpg`)
-      } catch (e) {
-        return id
-      }
-    }
-  }
+  // methods: {
+  //   avatarImg (id) {
+  //     try {
+  //       return require(`~/static/images/avatars/${id.toLowerCase()}.jpg`)
+  //     } catch (e) {
+  //       return id
+  //     }
+  //   }
+  // }
 }
 </script>
 
@@ -38,6 +38,9 @@ export default {
   border-radius 48px
   overflow hidden
   size 24px
+
+  img
+    position relative
 
   +above(m)
     size 32px

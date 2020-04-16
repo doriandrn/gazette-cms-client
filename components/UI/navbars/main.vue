@@ -3,7 +3,7 @@ nav(:data-vertical="vertical")
   ul(v-if="items")
     li(v-for="item, id in items")
       nuxt-link(v-if="itemIsLink(id)" :to="`/${id}`" :data-icon="icons ? item.icon || id : null") {{ item.name || item }}
-      button(v-else @click="doAction(id)" :data-icon="icons ? item.icon || id : null") {{ item.name || item }}
+      button(v-else @click="action(id)" :data-icon="icons ? item.icon || id : null") {{ item.name || item }}
 
   .action(v-if="$slots.default")
     button(data-icon="close" @click="doAction('')")
@@ -19,6 +19,17 @@ export default {
     ...mapActions({
       doAction: 'user/doAction'
     }),
+    action (id) {
+      switch (id) {
+        case 'back':
+          window.history.back()
+          break
+
+        default:
+          this.doAction(id)
+          break
+      }
+    },
     itemIsLink (id) {
       return ['profile', 'auth', 'favs', 'topics'].indexOf(id) > -1
     },

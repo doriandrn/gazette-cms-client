@@ -3,19 +3,22 @@ main.profile
   //- h1 Profile
 
   div(v-if="profile")
-    avatar.profile__pic(:avatar="profile.picture")
-    h3 {{ profile.name }}
+    avatar.profile__pic(:avatar="profile.avatar || profile.picture")
+    h3 {{ profile.name }} #[span.ver(v-if="profile.verified" data-icon="verified") Verified]
     p.meta
       span.handle @{{ profile.username || profile.handle }}
+    p.bio(v-if="profile.bio") {{ profile.bio }}
     p.meta
-      span.location Romania
-      span.jdate Joined 3 weeks ago
-    p.bio Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+      span.location(v-if="profile.country") #[span.flag #[img(:src="`/icons/flags/${profile.country}.png`") ]] Romania
+      span.jdate(v-if="profile.createdAt") Joined #[timedate(:unixTime="Number(profile.createdAt) * 1000")]
     //- button.follow(data-icon="plus") Follow
+
+    h4 Publications
 </template>
 
 <script>
 import avatar from 'c/social/avatar'
+import timedate from 'c/timedate'
 
 export default {
   async asyncData ({ params, $axios }) {
@@ -26,7 +29,8 @@ export default {
   },
   name: 'userProfile',
   components: {
-    avatar
+    avatar,
+    timedate
   },
   // computed: {
   //   profile () {
@@ -39,6 +43,13 @@ export default {
 
 <style lang="stylus" scoped>
 .profile
+  .ver
+    font-size 0
+    display inline-block
+    vertical-align top
+    margin-top 3px
+    margin-left 8px
+
   h3
     &+p.meta
       margin-top -16px

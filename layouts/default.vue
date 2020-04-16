@@ -11,9 +11,9 @@
   //- footer
   //-   p copyshit
 
-  configurator(v-if="cfgEnabled")
+  configurator(v-if="cfgEnabled" role="configuration")
 
-  main-nav.main(:items="navigation" :icons="true")
+  main-nav.main(:items="navigation" :icons="true" role="navigation")
     form.your-comment(v-if="activeAction === 'comment'")
       textarea(placeholder="Your comment" style="height: auto")
       button(type="submit" value="Post comment" data-icon="send")
@@ -22,7 +22,7 @@
       p share this shit
 
     form.search(v-else-if="activeAction === 'search'")
-      input(type="search")
+      input(type="search" v-focus="activeAction === 'search'")
 </template>
 
 <script>
@@ -47,6 +47,14 @@ const config = {
 }
 
 export default {
+  directives: {
+    focus: {
+      // directive definition
+      inserted: function (el) {
+        el.focus()
+      }
+    }
+  },
   head () {
     link: [
       {
@@ -58,17 +66,7 @@ export default {
   data () {
     return {
       categories,
-      config,
-      nav: {
-        def: {
-          trending: 'Trending',
-          topics: 'Topics',
-          search: 'Search',
-        },
-        single: {
-          share: 'Share'
-        }
-      }
+      config
     }
   },
   computed: {
@@ -80,16 +78,32 @@ export default {
       return path.indexOf('/article/') === 0 ? 'single' : 'home'
     },
     navigation () {
-      // const { single, def } = this.nav
-
-      const back = { back: 'Back' }
-      const single = { ...this.nav.single }
-      const def = { ...this.nav.def }
       const { loggedIn } = this.$auth
 
+      // Navigation Items
+      const back = {
+        back: 'Back'
+      }
+      const single = {
+        share: 'Share'
+      }
+      const def = {
+        trending: 'Trending',
+        topics: 'Topics',
+        search: 'Search'
+      }
+      const profile = {}
+
       if (loggedIn) {
-        def.favs = 'Favourites'
-        def.profile = 'Profile'
+        Object.assign(def, {
+          favs: 'Favourites',
+          profile: 'Profilee'
+        })
+
+        Object.assign(profile, {
+          follow: 'Follow',
+          dm: 'Message'
+        })
 
         Object.assign(single, {
           comment: 'Post a Comment',
@@ -97,19 +111,17 @@ export default {
           bookmark: 'Bookmark',
         })
       } else {
-        def.auth = 'Authenticate'
+        Object.assign(def, {
+          auth: 'Authenticate'
+        })
       }
-
 
       switch (this.activePageType) {
         case 'single':
           return Object.assign({}, { ...back }, single)
 
         case 'profile':
-          return Object.assign({}, { ...back }, {
-            follow: 'Follow',
-            dm: 'Message'
-          })
+          return Object.assign({}, { ...back }, profile)
 
         default:
           return def

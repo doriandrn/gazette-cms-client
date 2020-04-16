@@ -1,5 +1,5 @@
 <template lang="pug">
-.container__inner.main(:class="{ sidebar: $slots.sidebar }")
+.container__inner(:class="{ sidebar: $slots.sidebar }")
   h1 index page yoyo
 
   main

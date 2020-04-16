@@ -100,6 +100,22 @@ export default {
 </script>
 
 <style lang="stylus">
+ul.errors
+  position absolute
+  top 100%
+  left 20px
+  list-style-type none
+  background red
+  color white
+  z-index 3
+  padding 0
+  font-size 13px
+  border-bottom-radius 4px
+
+  > li
+    display block
+    padding 4px 8px
+
 form
   input[type="submit"]
     margin-top 16px
@@ -120,6 +136,7 @@ form
   > fieldset
     > span
       display block
+      position relative
       &+span
         margin-top 8px
 </style>

@@ -19,6 +19,7 @@ ValidationProvider(
     :checked=       "checked"
     :class=         " { error: errors && errors.length }"
     @input=        "$emit('input', $event.target.value)"
+    v-focus=        "focus"
   )
 
   ul.errors(v-if="errors")
@@ -36,7 +37,22 @@ export default {
   components: {
     ValidationProvider
   },
+  directives: {
+    focus: {
+      bind: function(el, b) {
+        if (b.value) el.focus()
+      }
+      // // directive definition
+      // inserted: function (el) {
+      //   el.focus()
+      // }
+    }
+  },
   props: {
+    focus: {
+      type: Boolean,
+      default: false
+    },
     label: {
       type: String,
       default: 'Unlabeled!'
