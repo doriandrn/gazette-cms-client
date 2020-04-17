@@ -108,10 +108,14 @@ export default {
   justify-content center
 
 .or
-  margin 40px 0
+  margin 32px 0
   position relative
   display block
   font-size 11px
+  color #aaa
+
+  +above(l)
+    margin 40px 0
 
   &:before
   &:after
