@@ -29,9 +29,19 @@ type ClientConfig = {
   description: string,
   languages: {
     main: string,
-    allowed: string[]
+    allowed ?: string[]
   },
-  taxes: string[]
+  appearance ?: {
+    branding ?: {
+      logo: {
+        icon: string,
+        full: string
+      }
+    },
+    palette ?: string,
+    typography ?: string
+  },
+  taxonomies: string[]
 }
 
 type ServerConfig = {
@@ -71,7 +81,7 @@ const config: GazetteConfig = {
       main: 'en',
       allowed: ['ro', 'en']
     },
-    taxes: [
+    taxonomies: [
       'article',
       'tutorial',
       'guide',
