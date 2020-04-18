@@ -32,23 +32,21 @@
 </template>
 
 <script>
-import homeData from 'data/homepage'
-
 import list from 'UI/list'
 import widget from 'UI/widget'
 import articleCard from 'UI/articleCard'
 
-import userConfig from '../userConfig'
-const { homepage } = userConfig.layout
+// import userConfig from '../userConfig'
+// const { homepage } = userConfig.layout
 
 export default {
   name: 'homepage',
-  data () {
-    return {
-      ...homeData,
-      cfg: { ...homepage }
-    }
-  },
+  // data () {
+  //   return {
+  //     ...homeData,
+  //     cfg: { ...homepage }
+  //   }
+  // },
   components: {
     list,
     widget,

@@ -36,7 +36,6 @@ import logo from 'c/logo'
 import configurator from 'c/configurator'
 
 import login from 'c/login'
-import categories from 'data/categories'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -63,12 +62,7 @@ export default {
       }
     ]
   },
-  data () {
-    return {
-      categories,
-      config
-    }
-  },
+
   computed: {
     activePageType () {
       const { path } = this.$route

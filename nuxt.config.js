@@ -92,21 +92,10 @@ module.exports = {
   toast: {
     position: 'bottom-center',
     duration: 3000,
-    theme: 'bubble',
-    singleton: true,
-    // register: [ // Register custom toasts
-    //   {
-    //     name: 'my-error',
-    //     message: 'Oops...Something went wrong',
-    //     options: {
-    //       type: 'error'
-    //     }
-    //   }
-    // ]
+    singleton: true
   },
 
   plugins: [
-    // { src: '~plugins/validate' },
     { src: '~plugins/slugify' },
   ],
 

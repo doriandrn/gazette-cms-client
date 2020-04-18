@@ -1,5 +1,18 @@
 <template lang="pug">
 .login(v-if= "activeFormId === 'login'")
+  .login__form
+    frm(
+      name=         "login"
+      :fieldsets =  "forms.login.fieldsets"
+      @submit =     "userLogin"
+      :busy =       "$auth.busy"
+    )
+
+    button.forgot(v-if="attempts > 1") Forgot your password?
+    button(@click="activeFormId = 'register'") Need an account? Register
+
+  span.or or
+
   form.login__social
     fieldset
       legend Sign in with:
@@ -11,18 +24,8 @@
           :data-icon=  "s.key"
         ) {{ s.name }}
 
-  span.or or
 
-  .login__form
-    frm(
-      name=         "login"
-      :fieldsets =  "forms.login.fieldsets"
-      @submit =     "userLogin"
-      :busy =       "$auth.busy"
-    )
 
-    button.forgot(v-if="attempts > 1") Forgot your password?
-    button(@click="activeFormId = 'register'") Need an account? Register
 
 .register(v-else-if=  "activeFormId === 'register'")
   h2 Register
