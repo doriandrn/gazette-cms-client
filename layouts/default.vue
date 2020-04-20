@@ -144,7 +144,10 @@ export default {
 @require './themes/' + theme + '/grid'
 
 nav.main
-  position fixed
+  // position fixed
+  position sticky
+  grid-area footer
+  z-index 11
   bottom 0
   width 100%
   background #fafafa
@@ -215,7 +218,7 @@ nav.main
                       'footer footer footer'
 
   grid-template-columns: minmax(10px, 20px) 1fr minmax(10px, 20px);
-  grid-template-rows: 170px minmax(30px, auto) 1fr minmax(100px, auto) auto minmax(80px, auto);
+  // grid-template-rows: 170px minmax(30px, auto) 1fr minmax(100px, auto) auto minmax(80px, auto);
   grid-row-gap 1px
   grid-column-gap 1px
 

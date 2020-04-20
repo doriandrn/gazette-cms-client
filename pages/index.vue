@@ -57,6 +57,12 @@ export default {
 
 <style lang="stylus">
 main
+  display flex
+  flex-flow row wrap
+
+  > *
+    flex 1 1 100%
+
   > ul
     list-style-type none
     padding 0
