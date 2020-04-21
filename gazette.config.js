@@ -88,6 +88,9 @@ const config = {
       'product',
       'video'
     ],
+    content: {
+      excerptLengthLimit: 148
+    }
   },
   server: {
     url: 'http://localhost:7331' // User has 2 options: manually host the server or use our cloud solution (TBD)

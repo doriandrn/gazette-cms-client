@@ -4,7 +4,7 @@ article.article
 
   .article__head
     .article__meta
-      navbar.categories(:items="categories")
+      navbar.topics(:items="topics")
       span 3min
 
     rating(:value="rating" v-if="rating")
@@ -14,13 +14,12 @@ article.article
 
   .article__content(v-html=  "content")
 
-  section.authors
+  sction.authors(v-if="authors")
     h2 Brought to you by
-    ul
-      li(v-for="author in authors")
-        nuxt-link(:to="`/profile/${slugify(author.name)}`") {{ author.name }}
+    ul(v-if="authors.length")
+      user-card(v-for="author in authors" :key="author.id" :author="author")
 
-  section.article__footer.ui
+  sction.article__footer.ui
     h2 Reactions
     ul.comments
       comment(
@@ -36,7 +35,7 @@ article.article
         :userComment = "authenticatedUserId === comment.author.id"
       )
 
-  section
+  sction
     h2 Related
 </template>
 
@@ -45,13 +44,17 @@ import featured from 'c/contentFeatured'
 import navbar from 'UI/navbars/default'
 import comment from 'c/comment'
 import rating from 'c/rating'
+import userCard from 'c/UserCard'
+import sction from 'c/UI/section'
 
 export default {
   components: {
     navbar,
     comment,
     featured,
-    rating
+    rating,
+    userCard,
+    sction
   },
   async asyncData ({ params, $axios }) {
     const { slug } = params
@@ -85,10 +88,25 @@ export default {
     max-width 90%
     margin 0 auto
 
-  h1
-  .rating
-  .article__content
-    margin-top 32px
+  .authors
+    ul
+      list-style none
+      padding 0
+
+      li
+        display flex
+        flex-flow row nowrap
+        align-items center
+
+        &:not(:first-child)
+          margin-top 12px
+
+        .user__avatar
+          margin-right 12px
+
+  &__head
+    > *:not(:first-child)
+      margin-top 32px
 
   &__meta
     display flex
@@ -103,7 +121,7 @@ export default {
       color: #666
 
   &__featured
-    margin 0 -21px
+    margin 0 -21px 12px
     width calc(100% + 42px + 2px)
 
     +above(l)
@@ -125,7 +143,7 @@ export default {
 
 borderColor = rgba(black, .05)
 
-.categories
+.topics
   > ul > li
     &:not(:first-child)
       margin-left 4px
@@ -134,7 +152,7 @@ borderColor = rgba(black, .05)
     padding: 6px 10px;
     color: #666;
     font-size: 12px;
-    border: 1px solid rgba(0,0,0,.05);
+    border: 1px solid rgba(black, .05);
 
 commentList()
   list-style none

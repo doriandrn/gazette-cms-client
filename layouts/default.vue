@@ -1,5 +1,5 @@
 <template lang="pug">
-.container(:class="{ 'configurator--open': cfgOpen }")
+.container(:class="{ 'configurator--open': cfgOpen }" :data-page="activePageType")
   header.header.ui
     .container__inner
       logo
@@ -14,6 +14,8 @@
   configurator(v-if="cfgEnabled" role="configuration")
 
   main-nav.main(:items="navigation" :icons="true" role="navigation")
+    form.composeSetup(v-if="activeAction === 'setup'")
+      p setup opts
     form.your-comment(v-if="activeAction === 'comment'")
       textarea(placeholder="Your comment" style="height: auto")
       button(type="submit" value="Post comment" data-icon="send")
@@ -69,15 +71,16 @@ export default {
       if (path.indexOf('/profile/') === 0) {
         return 'profile'
       }
+      if (path.indexOf('/compose') === 0) {
+        return 'compose'
+      }
       return path.indexOf('/article/') === 0 ? 'single' : 'home'
     },
     navigation () {
       const { loggedIn } = this.$auth
 
       // Navigation Items
-      const back = {
-        back: 'Back'
-      }
+
       const single = {
         share: 'Share'
       }
@@ -87,6 +90,11 @@ export default {
         search: 'Search'
       }
       const profile = {}
+      const compose = {
+        setup: 'Setup',
+        revHistory: 'Revision History',
+        publish: 'Publish',
+      }
 
       if (loggedIn) {
         Object.assign(def, {
@@ -112,10 +120,13 @@ export default {
 
       switch (this.activePageType) {
         case 'single':
-          return Object.assign({}, { ...back }, single)
+          return Object.assign({}, single)
 
         case 'profile':
-          return Object.assign({}, { ...back }, profile)
+          return Object.assign({}, profile)
+
+        case 'compose':
+          return Object.assign({}, compose)
 
         default:
           return def
@@ -221,6 +232,14 @@ nav.main
   // grid-template-rows: 170px minmax(30px, auto) 1fr minmax(100px, auto) auto minmax(80px, auto);
   grid-row-gap 1px
   grid-column-gap 1px
+
+  &[data-page="single"]
+    +above(xl)
+      grid-template-areas '. header header header header header header header header header header .'\
+                          '. main main main main main main main main main main .'
+      grid-template-columns: repeat(12, 1fr);
+      grid-column-gap: 1em;
+      grid-row-gap: 1em;
 
   &.sidebar
     +above(xl)

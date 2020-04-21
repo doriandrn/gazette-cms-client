@@ -1,11 +1,16 @@
 <template lang="pug">
-li
-  avatar.user__avatar
+li(v-if="author")
+  nuxt-link(:to="`/profile/${author.handle}`")
+    avatar.user__avatar
+
   .user__info
-    h4
-      nuxt-link.author__link(:to="`/profile/author.name.slugify}`") {{ author.name }}
-    span.author__role.green(v-if="author.role") {{ author.role }}
+    h5
+      nuxt-link.author__link(:to="`/profile/${author.handle}`") {{ author.name }}
+    //- span.author__role.green(v-if="author.role") {{ author.role }}
     p.author__bio.meta(v-if="size !== 'medium'") {{ author.bio }}
+
+li(v-else)
+  p Exception: missing author
 </template>
 
 <script>
@@ -33,3 +38,8 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+.user__avatar
+  size 50px
+</style>

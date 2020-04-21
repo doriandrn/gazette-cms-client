@@ -1,6 +1,6 @@
 <template lang="pug">
 main#new
-  h1 write
+  h1 Compose
   fieldset.selector
     select(v-model="taxonomy")
       option(v-for="tax in taxonomies" :value="tax" :selected="taxonomy === tax") {{ tax }}
@@ -22,7 +22,8 @@ main#new
 import EditorJS from '@editorjs/editorjs'
 import Header from '@editorjs/header'
 import List from '@editorjs/list'
-import config from '../../gazette.config'
+import config from '../gazette.config'
+import uniqueSlug from 'unique-slug'
 
 const { taxonomies } = config.client
 
@@ -33,6 +34,7 @@ export default {
     return {
       langs: ['en', 'ro'],
       slug: '',
+      uid: '',
       taxonomy,
       content: {
         blocks: []
@@ -57,9 +59,41 @@ export default {
     },
     wordsCount () {
       return this.rawContent.split(' ').length
+    },
+    placeholder () {
+      switch (this.taxonomy) {
+        default:
+          return 'Let`s write an awesome story!'
+
+        case 'product':
+          return 'Let`s define a new vision!'
+
+      }
+    },
+    publishData () {
+      return {}
+    },
+    draftData () {
+      const { uid, taxonomy, slug, content } = this
+      return { uid, taxonomy, slug, content }
+    }
+  },
+  methods: {
+    saveDraft (data) {
+      if (!process.browser) return
+      const { uid } = this
+      console.info('Saving draft uid: ', uid)
+      const drafts = JSON.parse(window.localStorage.getItem('drafts') || '{}')
+      drafts[uid] = drafts[uid] || []
+      drafts[uid].push(this.draftData)
+      window.localStorage.setItem('drafts', JSON.stringify(drafts))
     }
   },
   created () {
+    // for drafts.
+    this.uid = uniqueSlug()
+
+    // the editor
     const editor = new EditorJS({
       /**
        * Id of Element that should contain Editor instance
@@ -71,6 +105,8 @@ export default {
         this.slug = this
           .slugify(blocks[0].data.text)
           .replace(/nbsp-/g, '')
+
+        this.saveDraft(this.draftData)
       },
       placeholder: 'Let`s write an awesome story!',
       autofocus: true,

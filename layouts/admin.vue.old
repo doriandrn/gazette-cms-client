@@ -29,6 +29,7 @@ const sections = [
 //   mixins: [AuthMixin]
 // })
 export default class GazetteAdminLayout extends Vue {
+  name: 'adminLayout',
   data () {
     return {
       sections
