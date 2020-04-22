@@ -29,6 +29,9 @@ const { taxonomies } = config.client
 
 export default {
   name: 'Compose',
+  // async asyncData ({ params, $axios }) {
+  //   return {}
+  // },
   data () {
     const taxonomy = taxonomies[0] // first is default
     return {
@@ -75,7 +78,8 @@ export default {
     },
     draftData () {
       const { uid, taxonomy, slug, content } = this
-      return { uid, taxonomy, slug, content }
+      const updatedAt = new Date().toISOString()
+      return { uid, taxonomy, slug, content, updatedAt }
     }
   },
   methods: {

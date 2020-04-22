@@ -10,7 +10,7 @@ dayjs.extend(relativeTime)
 export default {
   props: {
     unixTime: {
-      type: Number
+      type: [Number, String]
     }
   },
   computed: {

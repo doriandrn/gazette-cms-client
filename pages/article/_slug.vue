@@ -60,16 +60,6 @@ export default {
     const { slug } = params
     try {
       const { data } = await $axios.get(`api/content/${slug}`)
-      console.log('d', data)
-
-      // if (data.categories.length) {
-      //   data.categories = data.categories.map(catId => categories[catId])
-      // }
-
-      // if (data.authors.length) {
-      //   data.authors = data.authors.map(authorId => authors[authorId])
-      // }
-
       return data
     } catch (e) {
       console.error('Eroare la cerere de articol:', e)
