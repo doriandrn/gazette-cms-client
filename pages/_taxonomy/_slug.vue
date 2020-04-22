@@ -17,21 +17,35 @@ main#new
 </template>
 
 <script lang="ts">
+import config from '~/gazette.config'
+import uniqueSlug from 'unique-slug'
+
 import EditorJS from '@editorjs/editorjs'
 import Header from '@editorjs/header'
 import List from '@editorjs/list'
-import config from '~/gazette.config'
-import uniqueSlug from 'unique-slug'
+import SimpleImage from '@editorjs/simple-image'
+import Checklist from '@editorjs/checklist'
+import Quote from '@editorjs/quote'
+import Warning from '@editorjs/warning'
+import Table from '@editorjs/table'
+import Marker from '@editorjs/marker'
+import InlineCode from '@editorjs/inline-code'
+import Embed from '@editorjs/embed'
+import Delimiter from '@editorjs/delimiter'
+import CodeTool from '@editorjs/code'
+import LinkTool from '@editorjs/link'
 
 const { taxonomies } = config.client
 let newRevision = false
 
 export default {
   name: 'Compose',
+
   validate ({ params, query, store }) {
     const predefined = ['draft']
     return predefined.concat(taxonomies).indexOf(params.taxonomy) > -1
   },
+
   async asyncData ({ params, $axios }) {
     const { slug, taxonomy } = params // For drafts, the slug is the UID
     try {
@@ -48,6 +62,7 @@ export default {
       console.error('Could not get content', e)
     }
   },
+
   data () {
     const taxonomy = taxonomies[0] // first is default
     return {
@@ -63,6 +78,7 @@ export default {
       }
     }
   },
+
   head () {
     return {
       title: this.name,
@@ -72,6 +88,7 @@ export default {
       ]
     }
   },
+
   computed: {
     rawContent () {
       if (!this.content.blocks) return ''
@@ -102,6 +119,7 @@ export default {
       return { uid, taxonomy, slug, content, updatedAt, revision }
     }
   },
+
   methods: {
     saveDraft (data) {
       if (!process.browser) return
@@ -118,6 +136,7 @@ export default {
       window.localStorage.setItem('drafts', JSON.stringify(drafts))
     }
   },
+
   created () {
     // for drafts.
     if (!this.uid.length) this.uid = uniqueSlug()
@@ -139,7 +158,7 @@ export default {
 
         this.content.blocks = blocks
         this.slug = this
-          .slugify(blocks[0].data.text)
+          .slugify(blocks.filter(block => block.type === 'header')[0].data.text)
           .replace(/nbsp-/g, '')
 
         this.saveDraft(this.draftData)
@@ -148,9 +167,75 @@ export default {
       autofocus: true,
       data: this.content,
       holderId: 'editor',
+      initialBlock: 'header',
       tools: {
-        header: Header,
-        list: List
+        /**
+         * Each Tool is a Plugin. Pass them via 'class' option with necessary settings {@link docs/tools.md}
+         */
+        header: {
+          class: Header,
+          inlineToolbar: ['link'],
+          config: {
+            placeholder: 'Header'
+          },
+          shortcut: 'CMD+SHIFT+H'
+        },
+
+        /**
+         * Or pass class directly without any configuration
+         */
+        image: SimpleImage,
+
+        list: {
+          class: List,
+          inlineToolbar: true,
+          shortcut: 'CMD+SHIFT+L'
+        },
+
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+
+        quote: {
+          class: Quote,
+          inlineToolbar: true,
+          config: {
+            quotePlaceholder: 'Enter a quote',
+            captionPlaceholder: 'Quote\'s author',
+          },
+          shortcut: 'CMD+SHIFT+O'
+        },
+
+        warning: Warning,
+
+        marker: {
+          class:  Marker,
+          shortcut: 'CMD+SHIFT+M'
+        },
+
+        code: {
+          class:  CodeTool,
+          shortcut: 'CMD+SHIFT+C'
+        },
+
+        delimiter: Delimiter,
+
+        inlineCode: {
+          class: InlineCode,
+          shortcut: 'CMD+SHIFT+C'
+        },
+
+        linkTool: LinkTool,
+
+        embed: Embed,
+
+        table: {
+          class: Table,
+          inlineToolbar: true,
+          shortcut: 'CMD+ALT+T'
+        },
+
       },
     });
   }

@@ -34,7 +34,7 @@ export default {
       default: () => `Untitled ${this.taxonomy || 'content'}`
     },
     date: {
-      type: Number
+      type: [Number, String]
     },
     excerpt: {
       type: String
