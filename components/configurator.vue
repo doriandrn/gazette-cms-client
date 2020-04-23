@@ -24,12 +24,12 @@ button#gconfigOpen(
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import config from '../userConfig'
+// import config from '../userConfig'
 import field from 'c/field'
 
 export default {
   data () {
-    return config
+    return {}
   },
   components: {
     field

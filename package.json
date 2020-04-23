@@ -1,9 +1,10 @@
 {
   "name": "gcms",
   "version": "1.0.0",
-  "description": "Modern, progressive CMS that focuses on UX, security and customization. Mobile-first.",
+  "description": "Modern, progressive, WYSIWYG CMS that focuses on UX, security and customization. Mobile-first.",
   "author": "Dorian Tudorache<dorian.snaz@gmail.com>",
   "private": false,
+  "license": "MIT",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
@@ -35,7 +36,6 @@
     "dayjs": "^1.8.24",
     "nuxt-edge": "^2.13.0-26444175.c02ded2d",
     "nuxt-i18n": "^6.8.1",
-    "prisma-client-lib": "^1.34.10",
     "reading-time": "^1.2.0",
     "unique-slug": "^2.0.2"
   },
