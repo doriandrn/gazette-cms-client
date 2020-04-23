@@ -1,19 +1,23 @@
 <template lang="pug">
 main#new
   h1(v-if="newContent") Compose
-  fieldset.selector(v-if="newContent && editing")
-    select(v-model="taxonomy")
-      option(v-for="tax in taxonomies" :value="tax" :selected="taxonomy === tax") {{ tax }}
+  form#setup(v-if="newContent && editing")
+    fieldset.selector
+      select(v-model="taxonomy")
+        option(v-for="tax in taxonomies" :value="tax" :selected="taxonomy === tax") {{ tax }}
 
     input#slug(type="text" placeholder="slug" v-model="slug")
-
-  #editor(:disabled="!editing")
-  #config
     //- p permit comments
     //- p count views
     //- p visibility: ....
     //- p {{ rawContent }}
-  .statusbar Rev. {{ revision }}; Draft autosaved! {{ wordsCount }} words - {{ readTime.text }}, lang etc
+
+  #editor(:disabled="!editing")
+  .statusbar
+    span Rev. {{ revision }}
+    span Draft autosaved!
+    span.w {{ wordsCount }} words
+    span {{ readTime.text }}
 </template>
 
 <script lang="ts">
@@ -57,9 +61,11 @@ export default {
         Object.assign(data, { newContent: false })
       } else {
         const drafts = JSON.parse(window.localStorage.getItem('drafts'))
-        const revision = drafts[slug].length - 1
-        data = drafts[slug][revision]
-        Object.assign(data, { revision })
+        if (drafts && drafts[slug]) {
+          const revision = drafts[slug].length - 1
+          data = drafts[slug][revision]
+          Object.assign(data, { revision })
+        }
       }
       return data
     } catch (e) {
@@ -147,12 +153,7 @@ export default {
   created () {
     // for drafts.
     if (!this.uid.length) this.uid = uniqueSlug()
-
-    if (this.editing) {
-      newRevision = true
-    } else {
-      newRevision = false
-    }
+    newRevision = this.editing
 
     // the editor
     const editor = new EditorJS({
@@ -277,4 +278,10 @@ input#slug
   padding: 0 20px;
   display: flex;
   flex-flow: row nowrap;
+
+  > span
+    &:not(:last-child)
+      margin-right 12px
+    &.w
+      margin-left auto
 </style>

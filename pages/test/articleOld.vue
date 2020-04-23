@@ -165,7 +165,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 @require '~styles/base'
 
 .article

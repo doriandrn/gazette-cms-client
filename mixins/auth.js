@@ -1,51 +1,51 @@
-import Vue from 'vue'
-import { Component } from 'nuxt-property-decorator'
+// import Vue from 'vue'
+// import { Component } from 'nuxt-property-decorator'
 
-@Component
-export default class AuthMixin extends Vue {
+// @Component
+// export default class AuthMixin extends Vue {
 
-  /**
-   * This define if login got an error
-   * @type {boolean}
-   */
-  loginHasError = false
+//   /**
+//    * This define if login got an error
+//    * @type {boolean}
+//    */
+//   loginHasError = false
 
-  /**
-   * Logout method using auth-module with custom post-request
-   * logic, using toast module to show information, success
-   * and error messages.
-   *
-   * @returns {Promise<void>}
-   */
-  async logout () {
+//   /**
+//    * Logout method using auth-module with custom post-request
+//    * logic, using toast module to show information, success
+//    * and error messages.
+//    *
+//    * @returns {Promise<void>}
+//    */
+//   async logout () {
 
-    // this.$toast.show('Logging out...')
-    await this.$auth.logout().then(() => {
-      // this.$toast.success('Successfully disconnected')
-    }).catch(err => {
-      // this.$toast.error('Error while disconnecting: ' + err.message)
-    })
-  }
+//     // this.$toast.show('Logging out...')
+//     await this.$auth.logout().then(() => {
+//       // this.$toast.success('Successfully disconnected')
+//     }).catch(err => {
+//       // this.$toast.error('Error while disconnecting: ' + err.message)
+//     })
+//   }
 
-  /**
-   * Login method using auth-module with custom post-request
-   * logic, using toast module to show information, success
-   * and error messages.
-   *
-   * @returns {Promise<T>}
-   */
-  async login() {
-    // this.$toast.show('Log in...')
-    await this.$auth.login({
-      data: {
-        username: this.username,
-        password: this.password
-      }
-    }).then(() => {
-      // this.$toast.success('Successfully connected')
-    }).catch(err => {
-      // this.$toast.error('Error while disconnecting: ' + err.message)
-      this.loginHasError = true
-    })
-  }
-}
+//   /**
+//    * Login method using auth-module with custom post-request
+//    * logic, using toast module to show information, success
+//    * and error messages.
+//    *
+//    * @returns {Promise<T>}
+//    */
+//   async login() {
+//     // this.$toast.show('Log in...')
+//     await this.$auth.login({
+//       data: {
+//         username: this.username,
+//         password: this.password
+//       }
+//     }).then(() => {
+//       // this.$toast.success('Successfully connected')
+//     }).catch(err => {
+//       // this.$toast.error('Error while disconnecting: ' + err.message)
+//       this.loginHasError = true
+//     })
+//   }
+// }

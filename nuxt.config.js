@@ -1,5 +1,8 @@
 import path from 'path'
 import fs from 'fs'
+import gazConfig from './gazette.config'
+
+const { client, server, auth: { social: { clientsIds } } } = gazConfig
 
 const stylusPlugins = [
   require('rupture')()
@@ -22,21 +25,20 @@ fs
       })
   })
 
-const title = 'g2'
 
 module.exports = {
   /*
   ** Headers of the page
   */
   head: {
-    title,
+    title: client.title,
     htmlAttrs: {
-      lang: 'en',
+      lang: client.languages.main,
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, user-scalable=no' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: client.description }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -99,16 +101,16 @@ module.exports = {
     { src: '~plugins/slugify' },
   ],
 
-  globalName: title,
+  globalName: client.title,
 
   axios: {
     proxy: true,
-    baseURL: 'http://localhost:7331/',
-    browserBaseURL: 'http://localhost:7331/'
+    baseURL: `${server.url}/`,
+    browserBaseURL: `${server.url}/`,
   },
 
   proxy: {
-    '/api': 'http://localhost:7331/api'
+    '/api': `${server.url}/api`,
   },
 
   auth: {
@@ -149,38 +151,38 @@ module.exports = {
         autoRefresh: true
       },
       auth0: {
-        domain: 'nuxt-auth.auth0.com',
-        clientId: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
+        domain: clientsIds.auth0.domain,
+        clientId: clientsIds.auth0.clientId
       },
       facebook: {
         endpoints: {
           userInfo: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday'
         },
-        clientId: '1671464192946675',
+        clientId: clientsIds.facebook,
         scope: ['public_profile', 'email', 'user_birthday']
       },
       google: {
-        clientId:
-          '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com'
+        clientId: clientsIds.google
       },
       github: {
-        clientId: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET
+        clientId: process.env.GITHUB_CLIENT_ID || clientsIds.github.id,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET || clientsIds.github.secret
       },
       twitter: {
-        clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+        clientId: clientsIds.twitter
       },
-      oauth2mock: {
-        _scheme: 'oauth2',
-        endpoints: {
-          authorization: '/oauth2mockLogin',
-          token: '/oauth2mockserver/token',
-          userInfo: '/oauth2mockserver/userinfo'
-        },
-        responseType: 'code',
-        grantType: 'authorization_code',
-        clientId: 'test-client'
-      }
+      // Maybe in a future releasee
+      // oauth2mock: {
+      //   _scheme: 'oauth2',
+      //   endpoints: {
+      //     authorization: '/oauth2mockLogin',
+      //     token: '/oauth2mockserver/token',
+      //     userInfo: '/oauth2mockserver/userinfo'
+      //   },
+      //   responseType: 'code',
+      //   grantType: 'authorization_code',
+      //   clientId: 'test-client'
+      // }
     }
   },
 

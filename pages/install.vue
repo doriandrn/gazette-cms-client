@@ -1,3 +1,8 @@
+/**
+ * This installer should transform the entire config file (gazeette.config.js)
+ * into a form that rewrites the file at the end. (Build commands must be rerun)
+ */
+
 <template lang="pug">
 main#install
   h1 Install

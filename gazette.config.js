@@ -90,6 +90,15 @@ const config = {
     ],
     content: {
       excerptLengthLimit: 148
+    },
+    appearance: {
+      palette: 'default',
+      typography: 'set-1',
+
+
+      navigation: {
+        useSmall: false
+      }
     }
   },
   server: {
@@ -105,7 +114,11 @@ const config = {
       clientsIds: {
         facebook: '',
         google: '',
-        auth0: '',
+        twitter: '',
+        auth0: {
+          domain: '',
+          clientId: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
+        },
         github: {
           id: '',
           secret: ''

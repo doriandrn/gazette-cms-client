@@ -1,10 +1,9 @@
 <template lang="pug">
 main(:class="{ sidebar: $slots.sidebar }")
-
+  nuxt-link(:to= "`/draft/new`") Write an awesome story
   hero(v-if=  "$route.path === '/'")
 
   h4 In the spotlight
-
   ul.cards(v-if="content")
     articleCard(
       v-if=     'content.articles'

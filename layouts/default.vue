@@ -268,16 +268,9 @@ header
 
   .logo
     margin 0 auto
+
     img
       max-height 36px
-
-  .actions
-    max-height 36px
-
-  .container__inner
-    padding: smalls.tb 0
-    flex-direction row
-    flex-wrap wrap
 
 .page__head
   grid-area pageHead
@@ -295,6 +288,7 @@ aside
   > header
     display flex
     flex-flow row nowrap
+    align-items center
 
     nav
       margin-top auto
