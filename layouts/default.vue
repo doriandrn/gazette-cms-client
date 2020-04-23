@@ -79,6 +79,7 @@ export default {
       const single = {
         share: 'Share'
       }
+      const auth = 'Authenticate'
       const def = {
         trending: 'Trending',
         topics: 'Topics',
@@ -108,9 +109,8 @@ export default {
           bookmark: 'Bookmark',
         })
       } else {
-        Object.assign(def, {
-          auth: 'Authenticate'
-        })
+        Object.assign(def, { auth })
+        Object.assign(profile, { ...def })
       }
 
       switch (this.activePageType) {
@@ -149,11 +149,11 @@ export default {
 @require './themes/' + theme + '/grid'
 
 nav.main
-  // position fixed
   position sticky
   grid-area footer
   z-index 11
   bottom 0
+  margin-top auto
   width 100%
   background #fafafa
   display: flex;
@@ -222,7 +222,6 @@ nav.main
   display grid
   grid-template-areas '. header .'\
                       '. main .'\
-                      '. aside .'\
                       'footer footer footer'
 
   grid-template-columns: minmax(10px, 20px) 1fr minmax(10px, 20px);

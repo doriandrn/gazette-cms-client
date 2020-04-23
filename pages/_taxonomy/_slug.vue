@@ -141,7 +141,7 @@ export default {
       const drafts = JSON.parse(window.localStorage.getItem('drafts') || '{}')
       drafts[uid] = drafts[uid] || []
       if (newRevision) {
-        drafts[uid].push({ ...draftData })
+        drafts[uid].unshift({ ...draftData }) //unshift insteead of push to preserve order
         newRevision = false
       } else {
         drafts[uid][drafts[uid].length - 1] = { ...draftData }
