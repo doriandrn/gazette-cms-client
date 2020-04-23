@@ -1,10 +1,7 @@
 <template lang="pug">
 .container(:class="{ 'configurator--open': cfgOpen }" :data-page="activePageType")
   header.header.ui
-    .container__inner
-      logo
-
-  hero(v-if=  "$route.path === '/'")
+    logo
 
   nuxt
 
@@ -28,8 +25,6 @@
 </template>
 
 <script>
-import hero from 'c/hero'
-
 import navbar from 'UI/navbars/default'
 import mainNav from 'UI/navbars/main'
 import actions from 'UI/actions'
@@ -139,7 +134,6 @@ export default {
     })
   },
   components: {
-    hero,
     actions,
     navbar,
     logo,
@@ -221,11 +215,14 @@ nav.main
   width 100%
   max-width 100%
   overflow-x hidden
+  // display flex
+  flex-flow row wrap
+
+  // +above(m)
   display grid
   grid-template-areas '. header .'\
                       '. main .'\
                       '. aside .'\
-                      '. video .'\
                       'footer footer footer'
 
   grid-template-columns: minmax(10px, 20px) 1fr minmax(10px, 20px);
@@ -267,6 +264,7 @@ nav.main
 
 header
   grid-area header
+  flex 1 1 100%
 
   .logo
     margin 0 auto

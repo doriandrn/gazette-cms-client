@@ -36,6 +36,7 @@
     "nuxt-edge": "^2.13.0-26444175.c02ded2d",
     "nuxt-i18n": "^6.8.1",
     "prisma-client-lib": "^1.34.10",
+    "reading-time": "^1.2.0",
     "unique-slug": "^2.0.2"
   },
   "devDependencies": {

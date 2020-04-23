@@ -13,12 +13,14 @@ main#new
     //- p count views
     //- p visibility: ....
     //- p {{ rawContent }}
-  .statusbar Revision: 0; draft autosaved! {{ wordsCount }}W < 1min, lang etc
+  .statusbar Rev. {{ revision }}; Draft autosaved! {{ wordsCount }} words - {{ readTime.text }}, lang etc
 </template>
 
 <script lang="ts">
 import config from '~/gazette.config'
+
 import uniqueSlug from 'unique-slug'
+import readingTime from "reading-time"
 
 import EditorJS from '@editorjs/editorjs'
 import Header from '@editorjs/header'
@@ -55,7 +57,9 @@ export default {
         Object.assign(data, { newContent: false })
       } else {
         const drafts = JSON.parse(window.localStorage.getItem('drafts'))
-        data = drafts[slug][drafts[slug].length - 1]
+        const revision = drafts[slug].length - 1
+        data = drafts[slug][revision]
+        Object.assign(data, { revision })
       }
       return data
     } catch (e) {
@@ -117,6 +121,9 @@ export default {
       const { uid, taxonomy, slug, content, revision } = this
       const updatedAt = new Date().toISOString()
       return { uid, taxonomy, slug, content, updatedAt, revision }
+    },
+    readTime () {
+      return readingTime(this.rawContent)
     }
   },
 
@@ -140,10 +147,9 @@ export default {
   created () {
     // for drafts.
     if (!this.uid.length) this.uid = uniqueSlug()
+
     if (this.editing) {
       newRevision = true
-      this.revision += 1
-      console.log('New revision', this.revision)
     } else {
       newRevision = false
     }
@@ -161,6 +167,7 @@ export default {
           .slugify(blocks.filter(block => block.type === 'header')[0].data.text)
           .replace(/nbsp-/g, '')
 
+        if (newRevision) this.revision += 1
         this.saveDraft(this.draftData)
       },
       placeholder: 'Let`s write an awesome story!',
@@ -261,4 +268,13 @@ input#slug
 .statusbar
   font-size 10px
   white-space nowrap
+  position fixed
+  background: #eee;
+  bottom: 56px;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+  display: flex;
+  flex-flow: row nowrap;
 </style>

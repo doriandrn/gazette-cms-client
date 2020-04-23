@@ -38,4 +38,5 @@ export default {
   grid-area pageHead
   background black
   color white
+  flex 0 0 100%
 </style>
