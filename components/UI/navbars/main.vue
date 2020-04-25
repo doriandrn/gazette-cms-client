@@ -25,6 +25,18 @@ export default {
           window.history.back()
           break
 
+        case 'publish':
+          const draftId = this.$route.path.split('/')[2]
+          let draft = JSON.parse(window.localStorage.getItem('drafts'))[draftId]
+          draft = draft[draft.length - 1]
+          console.log('publishing', draftId)
+          delete draft.uid
+          delete draft.revision
+          delete draft.updatedAt
+          draft.publishedAt = new Date()
+          this.$axios.post('/api/content', draft).then(res => { console.log('R', res) })
+          break
+
         default:
           this.doAction(id)
           break

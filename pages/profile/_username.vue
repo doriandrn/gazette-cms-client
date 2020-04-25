@@ -50,10 +50,6 @@ export default {
     margin-top 3px
     margin-left 8px
 
-  h3
-    &+p.meta
-      margin-top -16px
-
   button.follow[data-icon]
     font-size 16px
     &:before

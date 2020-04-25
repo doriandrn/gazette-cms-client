@@ -98,6 +98,7 @@ module.exports = {
   },
 
   plugins: [
+    { src: '~plugins/axiosErrorHandler' },
     { src: '~plugins/slugify' },
   ],
 

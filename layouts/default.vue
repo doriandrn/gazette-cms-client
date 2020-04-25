@@ -62,11 +62,11 @@ export default {
 
   computed: {
     activePageType () {
-      const { path } = this.$route
+      const { path, name } = this.$route
       if (path.indexOf('/profile/') === 0) {
         return 'profile'
       }
-      if (path.indexOf('/compose') === 0) {
+      if (name.indexOf('taxonomy-slug') > -1) {
         return 'compose'
       }
       return path.indexOf('/article/') === 0 ? 'single' : 'home'
@@ -88,8 +88,7 @@ export default {
       const profile = {}
       const compose = {
         setup: 'Setup',
-        revHistory: 'Revision History',
-        publish: 'Publish',
+        revHistory: 'Revision History'
       }
 
       if (loggedIn) {
@@ -107,6 +106,10 @@ export default {
           comment: 'Post a Comment',
           star: 'Review Article',
           bookmark: 'Bookmark',
+        })
+
+        Object.assign(compose, {
+          publish: 'Publish',
         })
       } else {
         Object.assign(def, { auth })
@@ -180,6 +183,7 @@ nav.main
 
   li
     flex 1 1 20%
+    display flex
 
   ul
     a
@@ -264,6 +268,7 @@ nav.main
 header
   grid-area header
   flex 1 1 100%
+  padding 20px
 
   .logo
     margin 0 auto
